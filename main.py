@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -32,6 +32,13 @@ if uploaded_file is not None:
     # Data Preprocessing
     st.subheader('Data Preprocessing')
     columns = data.columns.tolist()
+
+    # Convert string columns to integers
+    for col in columns:
+        if data[col].dtype == 'object':  # Check if column dtype is object (string)
+            encoder = LabelEncoder()
+            data[col] = encoder.fit_transform(data[col])
+
     selected_columns = st.multiselect('Select columns for clustering', columns)
 
     if selected_columns:
