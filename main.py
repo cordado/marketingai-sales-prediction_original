@@ -21,8 +21,16 @@ if uploaded_file is not None:
     elif uploaded_file.name.endswith('xlsx'):
         data = pd.read_excel(uploaded_file, engine='openpyxl')
 
-    # Drop rows with NaN values
+    # Handling missing values
+    st.subheader('Handling Missing Values')
+    st.write("Original data shape:", data.shape)
+    st.write("Number of missing values before handling:", data.isnull().sum().sum())
+    
+    # Drop rows with any NaN values
     data.dropna(inplace=True)
+
+    # Verify data integrity post handling missing values
+    st.write("Number of missing values after handling:", data.isnull().sum().sum())
 
     # Display Data
     if st.checkbox('Show raw data'):
