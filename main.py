@@ -4,9 +4,22 @@ from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 import seaborn as sns
+import joblib
+import requests
+
+# URL do arquivo
+url = 'https://relacoesinstitucionais.com.br/Fotos/Temp/kmeans_model_Boston.pkl'
+
+# Baixar o arquivo
+response = requests.get(url)
+with open('kmeans_model_Boston.pkl', 'wb') as f:
+    f.write(response.content)
+
+# Carregar o modelo
+kmeans = joblib.load('kmeans_model_Boston.pkl')
 
 # Title and Introduction
-st.title("Customer Segmentation App")
+st.title("Customer Segmentationssss App")
 st.write("""
     Upload a CSV or Excel file containing customer data. This application uses KMeans clustering to analyze customer personality data.
 """)
@@ -74,6 +87,9 @@ if uploaded_file is not None:
     else:
         st.write("Please select columns for clustering.")
 
+    # Footer
+    st.markdown("---")
+    st.write("© 2024 [Your Name]. All rights reserved.")
     # Footer
     st.markdown("---")
     st.write("© 2024 [Your Name]. All rights reserved.")
