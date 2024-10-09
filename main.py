@@ -2,15 +2,51 @@ import streamlit as st
 import pandas as pd
 from prophet import Prophet
 import plotly.express as px
+from sklearn.preprocessing import LabelEncoder
+from sklearn.cluster import KMeans
+import matplotlib.pyplot as plt
+from sklearn.preprocessing import StandardScaler
 
 # Carregar os dados
-dados_filtrados = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/base_mensal.csv')
-dados_filtrados['SOMA'] = dados_filtrados['sales'] * dados_filtrados['mean_price']
+dados_frame1 = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/dados_csv_Boston_sem_outliers.csv')
+dados_frame2 = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/dados_csv_New_York_sem_outliers.csv')
+dados_frame3 = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/dados_csv_Philadelphia_sem_outliers.csv')
+
 
 # Sidebar para filtros
-st.sidebar.header('Filtros')
-item_selecionado = st.sidebar.selectbox('Selecione o Item', options=dados_filtrados['item'].unique())
-store_selecionado = st.sidebar.selectbox('Selecione a Loja', options=dados_filtrados['store'].unique())
+st.sidebar.header('Escolher a região, loja e item')
+
+# Seleção da região
+region_selecionado = st.sidebar.selectbox('Selecione a Região', options=['Boston', 'New_York', 'Philadelphia'])
+
+# Carrega o DataFrame correto com base na região selecionada
+if region_selecionado == 'Boston':
+    dados_filtrados = dados_frame1
+elif region_selecionado == 'New_York':
+    dados_filtrados = dados_frame2
+elif region_selecionado == 'Philadelphia':
+    dados_filtrados = dados_frame3
+
+# Verifica se uma região foi selecionada
+if region_selecionado:
+    # Seleção da loja
+    store_selecionado = st.sidebar.selectbox('Selecione a Loja', options=dados_filtrados['store'].unique())
+    
+    # Verifica se uma loja foi selecionada
+    if store_selecionado:
+        # Filtra os dados pela loja selecionada
+        dados_filtrados_loja = dados_filtrados[dados_filtrados['store'] == store_selecionado]
+        
+        # Seleção do item
+        item_selecionado = st.sidebar.selectbox('Selecione o Item', options=dados_filtrados_loja['item'].unique())
+
+
+
+# Filtrar os dados
+if region_selecionado and store_selecionado and item_selecionado:
+    dados_filtrados_cluster_selecionado2 = dados_filtrados[(dados_filtrados['item'] == item_selecionado) & (dados_filtrados['store'] == store_selecionado)]
+else:
+    dados_filtrados_cluster_selecionado2 = dados_filtrados
 
 # Filtrar os dados
 if item_selecionado and store_selecionado:
