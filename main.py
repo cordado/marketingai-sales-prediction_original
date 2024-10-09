@@ -4,7 +4,7 @@ from fbprophet import Prophet
 import plotly.express as px
 
 # Carregar os dados
-dados_filtrados = pd.read_csv(('https://relacoesinstitucionais.com.br/Fotos/Temp/base_mensal.csv')
+dados_filtrados = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/base_mensal.csv')
 
 # Sidebar para filtros
 st.sidebar.header('Filtros')
