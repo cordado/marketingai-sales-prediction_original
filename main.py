@@ -48,12 +48,6 @@ if region_selecionado and store_selecionado and item_selecionado:
 else:
     dados_filtrados_cluster_selecionado2 = dados_filtrados
 
-# Filtrar os dados
-if item_selecionado and store_selecionado:
-    dados_filtrados_cluster_selecionado2 = dados_filtrados[(dados_filtrados['item'] == item_selecionado) & (dados_filtrados['store'] == store_selecionado)]
-else:
-    dados_filtrados_cluster_selecionado2 = dados_filtrados
-
 # Agrupar os dados
 dados_filtrados_cluster_selecionado3 = dados_filtrados_cluster_selecionado2.groupby(['year_month'])['SOMA'].sum().reset_index()
 
@@ -77,4 +71,4 @@ if st.button('Executar Previsão'):
     st.plotly_chart(fig)
 
 # Exibir os dados filtrados
-st.write(dados_filtrados_cluster_selecionado3)
+st.write(futuro)
