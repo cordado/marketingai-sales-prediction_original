@@ -69,7 +69,7 @@ dados_prophet = dados_filtrados_cluster_selecionado3.rename(columns={'year_month
 if st.button('Executar Previsão'):
     modelo = Prophet()
     modelo.fit(dados_prophet)
-    futuro = modelo.make_future_dataframe(periods=12, freq='M')
+    futuro = modelo.make_future_dataframe(periods=20, freq='MS')
     previsao = modelo.predict(futuro)
 
     # Plotar os resultados
