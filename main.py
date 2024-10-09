@@ -1,95 +1,43 @@
 import streamlit as st
 import pandas as pd
-from sklearn.preprocessing import StandardScaler, LabelEncoder
-from sklearn.cluster import KMeans
-import matplotlib.pyplot as plt
-import seaborn as sns
-import joblib
-import requests
+from fbprophet import Prophet
+import plotly.express as px
 
-# URL do arquivo
-url = 'https://relacoesinstitucionais.com.br/Fotos/Temp/kmeans_model_Boston.pkl'
+# Carregar os dados
+dados_filtrados = pd.read_csv(('https://relacoesinstitucionais.com.br/Fotos/Temp/base_mensal.csv')
 
-# Baixar o arquivo
-response = requests.get(url)
-with open('kmeans_model_Boston.pkl', 'wb') as f:
-    f.write(response.content)
+# Sidebar para filtros
+st.sidebar.header('Filtros')
+item_selecionado = st.sidebar.selectbox('Selecione o Item', options=dados_filtrados['item'].unique())
+store_selecionado = st.sidebar.selectbox('Selecione a Loja', options=dados_filtrados['store'].unique())
 
-# Carregar o modelo
-kmeans = joblib.load('kmeans_model_Boston.pkl')
+# Filtrar os dados
+if item_selecionado and store_selecionado:
+    dados_filtrados_cluster_selecionado2 = dados_filtrados[(dados_filtrados['item'] == item_selecionado) & (dados_filtrados['store'] == store_selecionado)]
+else:
+    dados_filtrados_cluster_selecionado2 = dados_filtrados
 
-# Title and Introduction
-st.title("Customer Segmentationssss App")
-st.write("""
-    Upload a CSV or Excel file containing customer data. This application uses KMeans clustering to analyze customer personality data.
-""")
+# Agrupar os dados
+dados_filtrados_cluster_selecionado3 = dados_filtrados_cluster_selecionado2.groupby(['year_month'])['SOMA'].sum().reset_index()
 
-# File Upload
-uploaded_file = st.file_uploader("Choose a CSV or Excel file", type=['csv', 'xlsx'])
+# Botão para resetar filtros
+if st.sidebar.button('Resetar Filtros'):
+    dados_filtrados_cluster_selecionado2 = dados_filtrados
+    dados_filtrados_cluster_selecionado3 = dados_filtrados_cluster_selecionado2.groupby(['year_month'])['SOMA'].sum().reset_index()
 
-if uploaded_file is not None:
-    # Load data
-    if uploaded_file.name.endswith('csv'):
-        data = pd.read_csv(uploaded_file)
-    elif uploaded_file.name.endswith('xlsx'):
-        data = pd.read_excel(uploaded_file, engine='openpyxl')
+# Preparar os dados para o Prophet
+dados_prophet = dados_filtrados_cluster_selecionado3.rename(columns={'year_month': 'ds', 'SOMA': 'y'})
 
-    # Handling missing values
-    st.subheader('Handling Missing Values')
-    st.write("Original data shape:", data.shape)
-    st.write("Number of missing values before handling:", data.isnull().sum().sum())
-    
-    # Drop rows with any NaN values
-    data.dropna(inplace=True)
+# Botão para executar a previsão
+if st.button('Executar Previsão'):
+    modelo = Prophet()
+    modelo.fit(dados_prophet)
+    futuro = modelo.make_future_dataframe(periods=12, freq='M')
+    previsao = modelo.predict(futuro)
 
-    # Verify data integrity post handling missing values
-    st.write("Number of missing values after handling:", data.isnull().sum().sum())
+    # Plotar os resultados
+    fig = px.line(previsao, x='ds', y='yhat', title='Previsão com Prophet')
+    st.plotly_chart(fig)
 
-    # Display Data
-    if st.checkbox('Show raw data'):
-        st.subheader('Raw data')
-        st.write(data)
-
-    # Data Preprocessing
-    st.subheader('Data Preprocessing')
-    columns = data.columns.tolist()
-
-    # Convert string columns to integers
-    for col in columns:
-        if data[col].dtype == 'object':  # Check if column dtype is object (string)
-            encoder = LabelEncoder()
-            data[col] = encoder.fit_transform(data[col])
-
-    selected_columns = st.multiselect('Select columns for clustering', columns)
-
-    if selected_columns:
-        st.write(f"Selected columns for clustering: {selected_columns}")
-        if len(selected_columns) >= 2:
-            scaler = StandardScaler()
-            scaled_data = scaler.fit_transform(data[selected_columns])
-
-            # Clustering
-            st.subheader('Clustering')
-            num_clusters = st.slider('Select number of clusters', 2, 10, 3)
-            kmeans = KMeans(n_clusters=num_clusters)
-            data['Cluster'] = kmeans.fit_predict(scaled_data)
-
-            # Visualize Clusters
-            st.subheader('Cluster Visualization')
-            if len(selected_columns) >= 2:
-                fig, ax = plt.subplots()
-                sns.scatterplot(x=data[selected_columns[0]], y=data[selected_columns[1]], hue=data['Cluster'], palette='viridis', ax=ax)
-                st.pyplot(fig)
-            else:
-                st.write("Please select at least two columns for clustering visualization.")
-        else:
-            st.write("Please select at least two columns for clustering visualization.")
-    else:
-        st.write("Please select columns for clustering.")
-
-    # Footer
-    st.markdown("---")
-    st.write("© 2024 [Your Name]. All rights reserved.")
-    # Footer
-    st.markdown("---")
-    st.write("© 2024 [Your Name]. All rights reserved.")
+# Exibir os dados filtrados
+st.write(dados_filtrados_cluster_selecionado3)
