@@ -5,6 +5,7 @@ import plotly.express as px
 
 # Carregar os dados
 dados_filtrados = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/base_mensal.csv')
+dados_filtrados['SOMA'] = dados_filtrados['sales'] * dados_filtrados['mean_price']
 
 # Sidebar para filtros
 st.sidebar.header('Filtros')
