@@ -71,4 +71,4 @@ if st.button('Executar Previsão'):
     st.plotly_chart(fig)
 
 # Exibir os dados filtrados
-st.write(futuro)
+st.write(previsao)
