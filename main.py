@@ -29,6 +29,22 @@ elif region_selecionado == 'Philadelphia':
     dados_filtrados = dados_frame3
 
 
+# Sidebar para filtros
+st.sidebar.header('Escolher a região, cluster, loja e item')
+
+# Seleção da região
+region_selecionado = st.sidebar.selectbox('Selecione a Região', options=['Boston', 'New_York', 'Philadelphia'])
+
+
+# Carrega o DataFrame correto com base na região selecionada
+if region_selecionado == 'Boston':
+    dados_filtrados = dados_frame1
+elif region_selecionado == 'New_York':
+    dados_filtrados = dados_frame2
+elif region_selecionado == 'Philadelphia':
+    dados_filtrados = dados_frame3
+
+
 # Verifica se uma region foi selecionada
 if region_selecionado:
     # Seleção do cluster
