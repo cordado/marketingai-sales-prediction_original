@@ -27,10 +27,10 @@ elif region_selecionado == 'Philadelphia':
     dados_filtrados = dados_frame3
 
 # Seleção do cluster
-cluster_selecionado = st.sidebar.selectbox('Selecione o cluster', options=dados_filtrados['cluster'].unique())
+cluster_selecionado = st.sidebar.selectbox('Selecione o cluster', options=dados_filtrados['Cluster'].unique())
 
 # Filtra os dados pelo cluster selecionado
-dados_filtrados_cluster = dados_filtrados[dados_filtrados['cluster'] == cluster_selecionado]
+dados_filtrados_cluster = dados_filtrados[dados_filtrados['Cluster'] == cluster_selecionado]
 
 # Seleção da loja
 store_selecionado = st.sidebar.selectbox('Selecione a Loja', options=dados_filtrados_cluster['store'].unique())
