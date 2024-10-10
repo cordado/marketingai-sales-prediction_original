@@ -42,7 +42,7 @@ dados_filtrados_loja = dados_filtrados_cluster[dados_filtrados_cluster['store'] 
 item_selecionado = st.sidebar.selectbox('Selecione o Item', options=dados_filtrados_loja['item'].unique())
 
 # Filtrar os dados
-dados_filtrados_cluster_selecionado2 = dados_filtrados[(dados_filtrados['cluster'] == cluster_selecionado) & (dados_filtrados['item'] == item_selecionado) & (dados_filtrados['store'] == store_selecionado)]
+dados_filtrados_cluster_selecionado2 = dados_filtrados[(dados_filtrados['Cluster'] == cluster_selecionado) & (dados_filtrados['item'] == item_selecionado) & (dados_filtrados['store'] == store_selecionado)]
 
 # Agrupar os dados
 dados_filtrados_cluster_selecionado3 = dados_filtrados_cluster_selecionado2.groupby(['year_month'])['SOMA'].sum().reset_index()
