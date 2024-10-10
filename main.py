@@ -69,7 +69,7 @@ if st.button('Executar Previsão'):
     st.plotly_chart(fig)
 
     df_real = pd.DataFrame(dados_prophet)
-    df_merged = pd.merge(df_real, forecast[['ds', 'yhat']], on='ds', how='left')
+    df_merged = pd.merge(df_real, previsao[['ds', 'yhat']], on='ds', how='left')
     df_merged
     
     # Plotando os dados
