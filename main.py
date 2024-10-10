@@ -55,11 +55,6 @@ if st.sidebar.button('Resetar Filtros'):
 # Preparar os dados para o Prophet
 dados_prophet = dados_filtrados_cluster_selecionado3.rename(columns={'year_month': 'ds', 'SOMA': 'y'})
 
-#
-df_real = pd.DataFrame(dados_prophet)
-df_merged = pd.merge(df_real, forecast[['ds', 'yhat']], on='ds', how='left')
-df_merged
-
 
 
 # Botão para executar a previsão
@@ -73,7 +68,10 @@ if st.button('Executar Previsão'):
     fig = px.line(previsao, x='ds', y='yhat', title='Previsão com Prophet')
     st.plotly_chart(fig)
 
-
+    df_real = pd.DataFrame(dados_prophet)
+    df_merged = pd.merge(df_real, forecast[['ds', 'yhat']], on='ds', how='left')
+    df_merged
+    
     # Plotando os dados
     plt.figure(figsize=(10, 5))
     plt.plot(df_merged['ds'], df_merged['y'], label='Valor Real', marker='o')
