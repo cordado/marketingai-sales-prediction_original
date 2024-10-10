@@ -12,7 +12,6 @@ dados_frame1 = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/dad
 dados_frame2 = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/dados_csv_New_York_sem_outliers.csv')
 dados_frame3 = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/dados_csv_Philadelphia_sem_outliers.csv')
 
-
 # Sidebar para filtros
 st.sidebar.header('Escolher a região, cluster, loja e item')
 
@@ -27,32 +26,23 @@ elif region_selecionado == 'New_York':
 elif region_selecionado == 'Philadelphia':
     dados_filtrados = dados_frame3
 
-# Verifica se uma região foi selecionada
-if region_selecionado:
-    # Seleção do cluster
-    cluster_selecionado = st.sidebar.selectbox('Selecione o cluster', options=dados_filtrados['cluster'].unique())
-    
-    # Verifica se um cluster foi selecionado
-    if cluster_selecionado:
-        # Filtra os dados pelo cluster selecionado
-        dados_filtrados_cluster = dados_filtrados[dados_filtrados['cluster'] == cluster_selecionado]
-        
-        # Seleção da loja
-        store_selecionado = st.sidebar.selectbox('Selecione a Loja', options=dados_filtrados_cluster['store'].unique())
-        
-        # Verifica se uma loja foi selecionada
-        if store_selecionado:
-            # Filtra os dados pela loja selecionada
-            dados_filtrados_loja = dados_filtrados_cluster[dados_filtrados_cluster['store'] == store_selecionado]
-            
-            # Seleção do item
-            item_selecionado = st.sidebar.selectbox('Selecione o Item', options=dados_filtrados_loja['item'].unique())
+# Seleção do cluster
+cluster_selecionado = st.sidebar.selectbox('Selecione o cluster', options=dados_filtrados['cluster'].unique())
+
+# Filtra os dados pelo cluster selecionado
+dados_filtrados_cluster = dados_filtrados[dados_filtrados['cluster'] == cluster_selecionado]
+
+# Seleção da loja
+store_selecionado = st.sidebar.selectbox('Selecione a Loja', options=dados_filtrados_cluster['store'].unique())
+
+# Filtra os dados pela loja selecionada
+dados_filtrados_loja = dados_filtrados_cluster[dados_filtrados_cluster['store'] == store_selecionado]
+
+# Seleção do item
+item_selecionado = st.sidebar.selectbox('Selecione o Item', options=dados_filtrados_loja['item'].unique())
 
 # Filtrar os dados
-if region_selecionado and cluster_selecionado and store_selecionado and item_selecionado:
-    dados_filtrados_cluster_selecionado2 = dados_filtrados[(dados_filtrados['cluster'] == cluster_selecionado) & (dados_filtrados['item'] == item_selecionado) & (dados_filtrados['store'] == store_selecionado)]
-else:
-    dados_filtrados_cluster_selecionado2 = dados_filtrados
+dados_filtrados_cluster_selecionado2 = dados_filtrados[(dados_filtrados['cluster'] == cluster_selecionado) & (dados_filtrados['item'] == item_selecionado) & (dados_filtrados['store'] == store_selecionado)]
 
 # Agrupar os dados
 dados_filtrados_cluster_selecionado3 = dados_filtrados_cluster_selecionado2.groupby(['year_month'])['SOMA'].sum().reset_index()
@@ -77,4 +67,5 @@ if st.button('Executar Previsão'):
     st.plotly_chart(fig)
 
 # Exibir os dados filtrados
-st.write(previsao)
+st.write(dados_filtrados_cluster_selecionado3)
+
