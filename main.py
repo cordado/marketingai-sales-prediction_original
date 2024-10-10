@@ -19,7 +19,6 @@ st.sidebar.header('Escolher a região, cluster, loja e item')
 # Seleção da região
 region_selecionado = st.sidebar.selectbox('Selecione a Região', options=['Boston', 'New_York', 'Philadelphia'])
 
-
 # Carrega o DataFrame correto com base na região selecionada
 if region_selecionado == 'Boston':
     dados_filtrados = dados_frame1
@@ -28,42 +27,26 @@ elif region_selecionado == 'New_York':
 elif region_selecionado == 'Philadelphia':
     dados_filtrados = dados_frame3
 
-
-# Sidebar para filtros
-st.sidebar.header('Escolher a região, cluster, loja e item')
-
-# Seleção da região
-region_selecionado = st.sidebar.selectbox('Selecione a Região', options=['Boston', 'New_York', 'Philadelphia'])
-
-
-# Carrega o DataFrame correto com base na região selecionada
-if region_selecionado == 'Boston':
-    dados_filtrados = dados_frame1
-elif region_selecionado == 'New_York':
-    dados_filtrados = dados_frame2
-elif region_selecionado == 'Philadelphia':
-    dados_filtrados = dados_frame3
-
-
-# Verifica se uma region foi selecionada
+# Verifica se uma região foi selecionada
 if region_selecionado:
     # Seleção do cluster
-     cluster_selecionado = st.sidebar.selectbox('Selecione o cluster', options=dados_filtrados['cluster'].unique())
-# Verifica se um cluster foi selecionado
+    cluster_selecionado = st.sidebar.selectbox('Selecione o cluster', options=dados_filtrados['cluster'].unique())
+    
+    # Verifica se um cluster foi selecionado
     if cluster_selecionado:
         # Filtra os dados pelo cluster selecionado
         dados_filtrados_cluster = dados_filtrados[dados_filtrados['cluster'] == cluster_selecionado]
+        
         # Seleção da loja
         store_selecionado = st.sidebar.selectbox('Selecione a Loja', options=dados_filtrados_cluster['store'].unique())
-    
-    # Verifica se uma loja foi selecionada
+        
+        # Verifica se uma loja foi selecionada
         if store_selecionado:
             # Filtra os dados pela loja selecionada
-            dados_filtrados_loja = store_selecionado[store_selecionado['store'] == store_selecionado]
+            dados_filtrados_loja = dados_filtrados_cluster[dados_filtrados_cluster['store'] == store_selecionado]
+            
             # Seleção do item
             item_selecionado = st.sidebar.selectbox('Selecione o Item', options=dados_filtrados_loja['item'].unique())
-
-
 
 # Filtrar os dados
 if region_selecionado and cluster_selecionado and store_selecionado and item_selecionado:
