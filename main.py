@@ -20,17 +20,23 @@ dados_frame3 = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/dad
 st.sidebar.header('Escolher a região, cluster, loja e item')
 
 # Seleção da região
-region_selecionado = st.sidebar.selectbox('Selecione a Região', options=['Escolha uma opção','Boston', 'New_Yor', 'Philadelphia'])
+region_selecionado = st.sidebar.selectbox('Selecione a Região', options=['Escolha uma opção', 'Boston', 'New_Yor', 'Philadelphia'])
 
 # Carrega o DataFrame correto com base na região selecionada
 if region_selecionado == 'Escolha uma opção':
-    dados_filtrados = []
-if region_selecionado == 'Boston':
+    dados_filtrados = None
+elif region_selecionado == 'Boston':
     dados_filtrados = dados_frame1
 elif region_selecionado == 'New_Yor':
     dados_filtrados = dados_frame2
 elif region_selecionado == 'Philadelphia':
     dados_filtrados = dados_frame3
+
+# Exibir os dados filtrados, se houver
+if dados_filtrados is not None:
+    st.write(dados_filtrados)
+else:
+    st.write("Nenhuma região selecionada.")
 
 # Seleção do cluster
 cluster_selecionado = st.sidebar.selectbox('Selecione o cluster', options=dados_filtrados['Cluster'].unique())
