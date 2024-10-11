@@ -36,13 +36,13 @@ if cluster_selecionado is not 'Escolha uma opção':
     final['SOMA'] = final['SOMA'].apply(lambda x: f'R${x:,.2f}')
     final['SOMA_TOTAL'] = final['SOMA_TOTAL'].apply(lambda x: f'R${x:,.2f}')
     final['PERCENTUAL_SOMA'] = final['PERCENTUAL_SOMA'].apply(lambda x: f'{x * 100:.2f}%')
-    final2 = dados_filtrados_cluster.groupby(['Cluster'])[['sales']].sum().reset_index()
+    final2 = dados_frame.groupby(['Cluster'])[['sales']].sum().reset_index()
     final2['sales_TOTAL'] = final2['sales'].sum()
     final2['PERCENTUAL_SALES'] = final2['sales'] / final2['sales_TOTAL']
     final2['sales'] = final2['sales'].apply(lambda x: f'{int(x):,}'.replace(',', '.'))
     final2['sales_TOTAL'] = final2['sales_TOTAL'].apply(lambda x: f'{int(x):,}'.replace(',', '.'))
     final2['PERCENTUAL_SALES'] = final2['PERCENTUAL_SALES'].apply(lambda x: f'{x * 100:.2f}%')
-    final3 = dados_filtrados_cluster.groupby(['Cluster'])[['mean_price']].mean().reset_index()
+    final3 = dados_frame.groupby(['Cluster'])[['mean_price']].mean().reset_index()
     final3['mean_price_TOTAL'] = final3['mean_price'].sum()
     final3['PERCENTUAL_MEAN'] = final3['mean_price'] / final3['mean_price_TOTAL']
     final3['mean_price'] = final3['mean_price'].apply(lambda x: f'R${x:,.2f}')
