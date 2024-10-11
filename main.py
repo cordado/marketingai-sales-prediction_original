@@ -9,7 +9,7 @@ from sklearn.preprocessing import StandardScaler
 
 
 # Exibir os dados filtrados
-st.write("DASHBOARD DA EMPRESA XXXX")
+st.markdown("# **DASHBOARD DA EMPRESA XXXX**")
 
 # Carregar os dados
 dados_frame1 = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/dados_csv_Boston_sem_outliers.csv')
