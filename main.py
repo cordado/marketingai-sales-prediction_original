@@ -16,14 +16,14 @@ dados_frame3 = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/dad
 st.sidebar.header('Escolher a região, cluster, loja e item')
 
 # Seleção da região
-region_selecionado = st.sidebar.selectbox('Selecione a Região', options=['Escolha uma opção','Boston', 'New_York', 'Philadelphia'])
+region_selecionado = st.sidebar.selectbox('Selecione a Região', options=['Escolha uma opção','Boston', 'New_Yor', 'Philadelphia'])
 
 # Carrega o DataFrame correto com base na região selecionada
 if region_selecionado == 'Escolha uma opção':
     dados_filtrados = []
 if region_selecionado == 'Boston':
     dados_filtrados = dados_frame1
-elif region_selecionado == 'New_York':
+elif region_selecionado == 'New_Yor':
     dados_filtrados = dados_frame2
 elif region_selecionado == 'Philadelphia':
     dados_filtrados = dados_frame3
