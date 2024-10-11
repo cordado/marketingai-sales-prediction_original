@@ -70,7 +70,7 @@ if st.button('Executar Previsão'):
     
 
     df_real = pd.DataFrame(dados_prophet)
-    df_merged = pd.merge(df_real, previsao[['ds', 'yhat']], on='ds', how='left')
+    df_merged = pd.concat(df_real, previsao[['ds', 'yhat']], on='ds', how='left')
     df_merged
     
     # Plotando os dados
