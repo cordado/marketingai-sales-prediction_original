@@ -84,7 +84,7 @@ if st.button('Executar Previsão'):
     plt.xlabel('Data')
     plt.ylabel('Valores')
     plt.legend()
-
+    st.pyplot(plt)
 # Exibir os dados filtrados
 st.write(dados_filtrados_cluster_selecionado3)
 
