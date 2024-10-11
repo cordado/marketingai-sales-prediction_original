@@ -55,6 +55,7 @@ else:
     st.write("Nenhum cluster selecionado.")
 
 # Seleção da região
+dados_frame_cluster = dados_frame[dados_frame['Cluster'] == cluster_selecionado]
 regiao_selecionada = st.sidebar.selectbox('Selecione a região', options=dados_frame_cluster['region'].unique())
 
 # Filtra os dados pela região selecionada
