@@ -95,6 +95,6 @@ if st.button('Executar Previsão'):
     st.pyplot(plt)
 
 # Exibir os dados filtrados
-st.write('DASHBOARD DA EMPRESA XXXX')
+st.write("DASHBOARD DA EMPRESA XXXX")
 
 
