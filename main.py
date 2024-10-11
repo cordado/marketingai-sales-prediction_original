@@ -69,21 +69,21 @@ if st.button('Executar Previsão'):
 
     
 
-df_real = pd.DataFrame(dados_prophet)
-df_real['ds'] = pd.to_datetime(df_real['ds'])
-previsao['ds'] = pd.to_datetime(previsao['ds'])
+    df_real = pd.DataFrame(dados_prophet)
+    df_real['ds'] = pd.to_datetime(df_real['ds'])
+    previsao['ds'] = pd.to_datetime(previsao['ds'])
 
-# Filtrar df_real até 2015-12-01 e previsao igual ou acima de 2016-01-01
-df_real_filtered = df_real[df_real['ds'] <= '2015-12-01']
-previsao_filtered = previsao[previsao['ds'] >= '2016-01-01']
+    # Filtrar df_real até 2015-12-01 e previsao igual ou acima de 2016-01-01
+    df_real_filtered = df_real[df_real['ds'] <= '2015-12-01']
+    previsao_filtered = previsao[previsao['ds'] >= '2016-01-01']
 
-# Concatenar os DataFrames filtrados
-df_merged = pd.concat([df_real_filtered, previsao_filtered[['ds', 'yhat']]], axis=0).reset_index(drop=True)
+    # Concatenar os DataFrames filtrados
+    df_merged = pd.concat([df_real_filtered, previsao_filtered[['ds', 'yhat']]], axis=0).reset_index(drop=True)
 
-# Plotar os valores reais vs preditos usando Matplotlib e Streamlit
-plt.figure(figsize=(10, 5))
-plt.plot(df_real_filtered['ds'], df_real_filtered['y'], label='Valor Real', marker='o')
-plt.plot(previsao_filtered['ds'], previsao_filtered['yhat'], label='Valor Predito', marker='x')
+     # Plotar os valores reais vs preditos usando Matplotlib e Streamlit
+    plt.figure(figsize=(10, 5))
+    plt.plot(df_real_filtered['ds'], df_real_filtered['y'], label='Valor Real', marker='o')
+    plt.plot(previsao_filtered['ds'], previsao_filtered['yhat'], label='Valor Predito', marker='x')
     
     # Adicionando título e rótulos
     plt.title('Comparação entre Valor Real e Valor Predito')
@@ -91,6 +91,7 @@ plt.plot(previsao_filtered['ds'], previsao_filtered['yhat'], label='Valor Predit
     plt.ylabel('Valores')
     plt.legend()
     st.pyplot(plt)
+
 # Exibir os dados filtrados
 st.write(dados_filtrados_cluster_selecionado3)
 
