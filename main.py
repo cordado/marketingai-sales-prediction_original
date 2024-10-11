@@ -13,7 +13,7 @@ st.markdown("# **DASHBOARD DA EMPRESA XXXX**")
 
 
 # Carregar os dados
-dados_frame = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/XXXX.csv')
+dados_frame = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/dados_boston_sem_outliers.csv')
 
 # Sidebar para filtros
 st.sidebar.header('Escolher o cluster, region e store')
