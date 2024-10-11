@@ -28,7 +28,7 @@ else:
     dados_frame_cluster = dados_frame[dados_frame['Cluster'] == cluster_selecionado]
 
 # Exibir os dados filtrados, se houver
-if cluster_selecionado is not 'Escolha uma opção':
+if cluster_selecionado != 'Escolha uma opção':
     # Painel Geral dos Clusters
     final = dados_frame.groupby(['Cluster'])[['SOMA']].sum().reset_index()
     final['SOMA_TOTAL'] = final['SOMA'].sum()
