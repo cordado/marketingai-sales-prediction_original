@@ -57,7 +57,7 @@ if dados_filtrados is not None:
     final3['PERCENTUAL_MEAN'] = final3['PERCENTUAL_MEAN'].apply(lambda x: f'{x * 100:.2f}%')
     finais = pd.merge(final, final2, on='Cluster', how='outer')
     finais = pd.merge(finais, final3, on='Cluster', how='outer')
-    st.write(finais)
+    st.dataframe(finais)
 else:
     st.write("Nenhuma região selecionada.")
 
