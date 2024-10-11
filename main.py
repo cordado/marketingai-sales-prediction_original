@@ -13,30 +13,24 @@ st.markdown("# **DASHBOARD DA EMPRESA XXXX**")
 
 
 # Carregar os dados
-dados_frame1 = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/dados_csv_Boston_sem_outliers.csv')
-dados_frame2 = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/dados_csv_New_York_sem_outliers.csv')
-dados_frame3 = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/dados_csv_Philadelphia_sem_outliers.csv')
+dados_frame = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/XXXX.csv')
 
 # Sidebar para filtros
-st.sidebar.header('Escolher a região, cluster, loja e item')
+st.sidebar.header('Escolher o cluster, region e store')
 
 # Seleção da região
-region_selecionado = st.sidebar.selectbox('Selecione a Região', options=['Escolha uma opção', 'Boston', 'New_Yor', 'Philadelphia'])
+cluster_selecionado = st.sidebar.selectbox('Selecione o Cluster', options=['Escolha uma opção', '0', '1', '2', '3', '4'])
 
 # Carrega o DataFrame correto com base na região selecionada
-if region_selecionado == 'Escolha uma opção':
-    dados_filtrados = None
-elif region_selecionado == 'Boston':
-    dados_filtrados = dados_frame1
-elif region_selecionado == 'New_Yor':
-    dados_filtrados = dados_frame2
-elif region_selecionado == 'Philadelphia':
-    dados_filtrados = dados_frame3
+if cluster_selecionado == 'Escolha uma opção':
+    dados_frame = dados_frame
+elif 
+    dados_frame_cluster = dados_frame[dados_frame['Cluster'] == cluster_selecionado]
 
 # Exibir os dados filtrados, se houver
-if dados_filtrados is not None:
+if cluster_selecionado is not 'Escolha uma opção':
     # Painel Geral dos Clusters
-    dados_filtrados_cluster = dados_filtrados
+    dados_filtrados_cluster = dados_frame
     final = dados_filtrados_cluster.groupby(['Cluster'])[['SOMA']].sum().reset_index()
     final['SOMA_TOTAL'] = final['SOMA'].sum()
     final['PERCENTUAL_SOMA'] = final['SOMA'] / final['SOMA_TOTAL']
@@ -59,34 +53,29 @@ if dados_filtrados is not None:
     finais = pd.merge(finais, final3, on='Cluster', how='outer')
     st.dataframe(finais)
 else:
-    st.write("Nenhuma região selecionada.")
+    st.write("Nenhum cluster selecionado.")
 
-# Seleção do cluster
-cluster_selecionado = st.sidebar.selectbox('Selecione o cluster', options=dados_filtrados['Cluster'].unique())
+# Seleção da região
+regiao_selecionada = st.sidebar.selectbox('Selecione a região', options=dados_filtrados_cluster['Region'].unique())
 
-# Filtra os dados pelo cluster selecionado
-dados_filtrados_cluster = dados_filtrados[dados_filtrados['Cluster'] == cluster_selecionado]
-
+# Filtra os dados pela região selecionada
+regiao_selecionada = dados_filtrados_cluster[dados_filtrados_cluster['Region'] == regiao_selecionada]
 
 # Seleção da loja
-store_selecionado = st.sidebar.selectbox('Selecione a Loja', options=dados_filtrados_cluster['store'].unique())
+store_selecionado = st.sidebar.selectbox('Selecione a Loja', options=regiao_selecionada['store'].unique())
 
 # Filtra os dados pela loja selecionada
-dados_filtrados_loja = dados_filtrados_cluster[dados_filtrados_cluster['store'] == store_selecionado]
-
-# Seleção do item
-item_selecionado = st.sidebar.selectbox('Selecione o Item', options=dados_filtrados_loja['item'].unique())
+dados_filtrados_loja = regiao_selecionada[regiao_selecionada['store'] == store_selecionado]
 
 # Filtrar os dados
-dados_filtrados_cluster_selecionado2 = dados_filtrados[(dados_filtrados['Cluster'] == cluster_selecionado) & (dados_filtrados['item'] == item_selecionado) & (dados_filtrados['store'] == store_selecionado)]
+# dados_filtrados_cluster_selecionado2 = dados_filtrados[(dados_filtrados['Cluster'] == cluster_selecionado) & (dados_filtrados['item'] == item_selecionado) & (dados_filtrados['store'] == store_selecionado)]
 
 # Agrupar os dados
-dados_filtrados_cluster_selecionado3 = dados_filtrados_cluster_selecionado2.groupby(['year_month'])['SOMA'].sum().reset_index()
+dados_filtrados_cluster_selecionado3 = dados_filtrados_loja.groupby(['year_month'])['SOMA'].sum().reset_index()
 
 # Botão para resetar filtros
 if st.sidebar.button('Resetar Filtros'):
-    dados_filtrados_cluster_selecionado2 = dados_filtrados
-    dados_filtrados_cluster_selecionado3 = dados_filtrados_cluster_selecionado2.groupby(['year_month'])['SOMA'].sum().reset_index()
+    dados_filtrados_cluster_selecionado3 = dados_frame.groupby(['year_month'])['SOMA'].sum().reset_index()
 
 # Preparar os dados para o Prophet
 dados_prophet = dados_filtrados_cluster_selecionado3.rename(columns={'year_month': 'ds', 'SOMA': 'y'})
