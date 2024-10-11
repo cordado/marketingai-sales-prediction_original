@@ -68,7 +68,6 @@ if st.button('Executar Previsão'):
     fig = px.line(previsao, x='ds', y='yhat', title='Previsão com Prophet')
     st.plotly_chart(fig)
 
-    dados_prophet['ds'] = dados_prophet['ds'].dt.strftime('%Y-%m')
     previsao['ds'] = previsao['ds'].dt.strftime('%Y-%m')
     df_real = pd.DataFrame(dados_prophet)
     df_merged = pd.merge(df_real, previsao[['ds', 'yhat']], on='ds', how='left')
