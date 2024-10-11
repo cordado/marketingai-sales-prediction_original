@@ -68,6 +68,7 @@ if st.button('Executar Previsão'):
     fig = px.line(previsao, x='ds', y='yhat', title='Previsão com Prophet')
     st.plotly_chart(fig)
 
+    
     previsao['ds'] = previsao['ds'].dt.strftime('%Y-%m')
     df_real = pd.DataFrame(dados_prophet)
     df_merged = pd.merge(df_real, previsao[['ds', 'yhat']], on='ds', how='left')
@@ -86,6 +87,6 @@ if st.button('Executar Previsão'):
     st.pyplot(plt)
 # Exibir os dados filtrados
 st.write(dados_filtrados_cluster_selecionado3)
-st.write(previsao)
+st.write(dados_prophet)
 
 
