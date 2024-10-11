@@ -62,7 +62,7 @@ final3['mean_price'] = final3['mean_price'].apply(lambda x: f'R${x:,.2f}')
 final3['mean_price_TOTAL'] = final3['mean_price_TOTAL'].apply(lambda x: f'R${x:,.2f}')
 final3['PERCENTUAL_MEAN'] = final3['PERCENTUAL_MEAN'].apply(lambda x: f'{x * 100:.2f}%')
 finais = pd.merge(final, final2, on='Cluster', how='outer')
-finais = pd.merge(merged_df, final3, on='Cluster', how='outer')
+finais = pd.merge(finais, final3, on='Cluster', how='outer')
 st.write("finais")
 
 
