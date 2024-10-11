@@ -43,6 +43,7 @@ cluster_selecionado = st.sidebar.selectbox('Selecione o cluster', options=dados_
 
 # Filtra os dados pelo cluster selecionado
 dados_filtrados_cluster = dados_filtrados[dados_filtrados['Cluster'] == cluster_selecionado]
+st.write("TESTE PARA VER SE FUNCIONOU")
 
 # Seleção da loja
 store_selecionado = st.sidebar.selectbox('Selecione a Loja', options=dados_filtrados_cluster['store'].unique())
@@ -77,9 +78,6 @@ if st.button('Executar Previsão'):
 
     # Plotar os resultados
     fig = px.line(previsao, x='ds', y='yhat', title='Previsão com Prophet')
-    st.plotly_chart(fig)
-
-    
 
     df_real = pd.DataFrame(dados_prophet)
     df_real['ds'] = pd.to_datetime(df_real['ds'])
