@@ -7,6 +7,10 @@ from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 
+
+# Exibir os dados filtrados
+st.write("DASHBOARD DA EMPRESA XXXX")
+
 # Carregar os dados
 dados_frame1 = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/dados_csv_Boston_sem_outliers.csv')
 dados_frame2 = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/dados_csv_New_York_sem_outliers.csv')
@@ -94,7 +98,6 @@ if st.button('Executar Previsão'):
     plt.legend()
     st.pyplot(plt)
 
-# Exibir os dados filtrados
-st.write("DASHBOARD DA EMPRESA XXXX")
+
 
 
