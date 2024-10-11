@@ -24,7 +24,7 @@ cluster_selecionado = st.sidebar.selectbox('Selecione o Cluster', options=['Esco
 # Carrega o DataFrame correto com base na região selecionada
 if cluster_selecionado == 'Escolha uma opção':
     dados_frame = dados_frame
-elif 
+else 
     dados_frame_cluster = dados_frame[dados_frame['Cluster'] == cluster_selecionado]
 
 # Exibir os dados filtrados, se houver
