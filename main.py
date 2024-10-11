@@ -11,29 +11,6 @@ from sklearn.preprocessing import StandardScaler
 # Exibir os dados filtrados
 st.markdown("# **DASHBOARD DA EMPRESA XXXX**")
 
-# Painel Geral dos Clusters
-dados_filtrados_cluster = dados_filtrados
-final = dados_filtrados_cluster.groupby(['Cluster'])[['SOMA']].sum().reset_index()
-final['SOMA_TOTAL'] = final['SOMA'].sum()
-final['PERCENTUAL_SOMA'] = final['SOMA'] / final['SOMA_TOTAL']
-final['SOMA'] = final['SOMA'].apply(lambda x: f'R${x:,.2f}')
-final['SOMA_TOTAL'] = final['SOMA_TOTAL'].apply(lambda x: f'R${x:,.2f}')
-final['PERCENTUAL_SOMA'] = final['PERCENTUAL_SOMA'].apply(lambda x: f'{x * 100:.2f}%')
-final2 = dados_filtrados_cluster.groupby(['Cluster'])[['sales']].sum().reset_index()
-final2['sales_TOTAL'] = final2['sales'].sum()
-final2['PERCENTUAL_SALES'] = final2['sales'] / final2['sales_TOTAL']
-final2['sales'] = final2['sales'].apply(lambda x: f'{int(x):,}'.replace(',', '.'))
-final2['sales_TOTAL'] = final2['sales_TOTAL'].apply(lambda x: f'{int(x):,}'.replace(',', '.'))
-final2['PERCENTUAL_SALES'] = final2['PERCENTUAL_SALES'].apply(lambda x: f'{x * 100:.2f}%')
-final3 = dados_filtrados_cluster.groupby(['Cluster'])[['mean_price']].mean().reset_index()
-final3['mean_price_TOTAL'] = final3['mean_price'].sum()
-final3['PERCENTUAL_MEAN'] = final3['mean_price'] / final3['mean_price_TOTAL']
-final3['mean_price'] = final3['mean_price'].apply(lambda x: f'R${x:,.2f}')
-final3['mean_price_TOTAL'] = final3['mean_price_TOTAL'].apply(lambda x: f'R${x:,.2f}')
-final3['PERCENTUAL_MEAN'] = final3['PERCENTUAL_MEAN'].apply(lambda x: f'{x * 100:.2f}%')
-finais = pd.merge(final, final2, on='Cluster', how='outer')
-finais = pd.merge(finais, final3, on='Cluster', how='outer')
-st.write(finais)
 
 # Carregar os dados
 dados_frame1 = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/dados_csv_Boston_sem_outliers.csv')
@@ -58,7 +35,29 @@ elif region_selecionado == 'Philadelphia':
 
 # Exibir os dados filtrados, se houver
 if dados_filtrados is not None:
-    st.write(dados_filtrados)
+    # Painel Geral dos Clusters
+    dados_filtrados_cluster = dados_filtrados
+    final = dados_filtrados_cluster.groupby(['Cluster'])[['SOMA']].sum().reset_index()
+    final['SOMA_TOTAL'] = final['SOMA'].sum()
+    final['PERCENTUAL_SOMA'] = final['SOMA'] / final['SOMA_TOTAL']
+    final['SOMA'] = final['SOMA'].apply(lambda x: f'R${x:,.2f}')
+    final['SOMA_TOTAL'] = final['SOMA_TOTAL'].apply(lambda x: f'R${x:,.2f}')
+    final['PERCENTUAL_SOMA'] = final['PERCENTUAL_SOMA'].apply(lambda x: f'{x * 100:.2f}%')
+    final2 = dados_filtrados_cluster.groupby(['Cluster'])[['sales']].sum().reset_index()
+    final2['sales_TOTAL'] = final2['sales'].sum()
+    final2['PERCENTUAL_SALES'] = final2['sales'] / final2['sales_TOTAL']
+    final2['sales'] = final2['sales'].apply(lambda x: f'{int(x):,}'.replace(',', '.'))
+    final2['sales_TOTAL'] = final2['sales_TOTAL'].apply(lambda x: f'{int(x):,}'.replace(',', '.'))
+    final2['PERCENTUAL_SALES'] = final2['PERCENTUAL_SALES'].apply(lambda x: f'{x * 100:.2f}%')
+    final3 = dados_filtrados_cluster.groupby(['Cluster'])[['mean_price']].mean().reset_index()
+    final3['mean_price_TOTAL'] = final3['mean_price'].sum()
+    final3['PERCENTUAL_MEAN'] = final3['mean_price'] / final3['mean_price_TOTAL']
+    final3['mean_price'] = final3['mean_price'].apply(lambda x: f'R${x:,.2f}')
+    final3['mean_price_TOTAL'] = final3['mean_price_TOTAL'].apply(lambda x: f'R${x:,.2f}')
+    final3['PERCENTUAL_MEAN'] = final3['PERCENTUAL_MEAN'].apply(lambda x: f'{x * 100:.2f}%')
+    finais = pd.merge(final, final2, on='Cluster', how='outer')
+    finais = pd.merge(finais, final3, on='Cluster', how='outer')
+    st.write(finais)
 else:
     st.write("Nenhuma região selecionada.")
 
