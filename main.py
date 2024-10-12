@@ -48,6 +48,7 @@ if cluster_selecionado != 'Escolha uma opção':
     final3['PERCENTUAL_MEAN'] = final3['PERCENTUAL_MEAN'].apply(lambda x: f'{x * 100:.2f}%')
     finais = pd.merge(final, final2, on='Cluster', how='outer')
     finais = pd.merge(finais, final3, on='Cluster', how='outer')
+    finais.set_index('Cluster', inplace=True)
     st.dataframe(finais)
 else:
     st.write("Nenhum cluster selecionado.")
