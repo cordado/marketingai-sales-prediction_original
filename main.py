@@ -114,9 +114,11 @@ if st.button('Executar Previsão'):
     plt.legend()
     st.pyplot(plt)
 
-    st.dataframe(dados_filtrados_loja[['region', 'store', 'sales', 'mean_price', 'SOMA']])
 
-    plot1 = modelo.plot(futuro)
+    
+    st.dataframe(dados_filtrados_loja[['region', 'store', 'sales', 'mean_price', 'SOMA']]).nlargest(5, 'SOMA')
+
+    
 
 
     #
