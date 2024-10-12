@@ -66,7 +66,7 @@ if cluster_selecionado != 'Escolha uma opção':
         if store_selecionado != 'Escolha uma opção':
             dados_filtrados_loja = regiao_filtrada[regiao_filtrada['store'] == store_selecionado]
             dados_filtrados_cluster_selecionado3 = dados_filtrados_loja.groupby(['year_month'])['SOMA'].sum().reset_index()
-            dados_filtrados_loja = dados_filtrados_loja[['region', 'store', 'sales', 'mean_price', 'SOMA']]
+            dados_filtrados_loja = dados_filtrados_loja[['year_month','item', 'region', 'store', 'sales', 'mean_price', 'SOMA']]
         else:
             st.write("Nenhuma loja selecionada.")
     else:
@@ -117,7 +117,7 @@ if st.button('Executar Previsão'):
 
     
     # Assuming dados_filtrados_loja is your DataFrame
-    top_5_stores = dados_filtrados_loja[['item','store', 'sales', 'mean_price', 'SOMA']].nlargest(5, 'SOMA')
+    top_5_stores = dados_filtrados_loja[['year_month','item','store', 'sales', 'mean_price', 'SOMA']].nlargest(5, 'SOMA')
 
     # Display the DataFrame
     st.dataframe(top_5_stores)
