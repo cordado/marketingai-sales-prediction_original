@@ -7,16 +7,6 @@ from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 
-
-import streamlit as st
-import pandas as pd
-from prophet import Prophet
-import plotly.express as px
-from sklearn.preprocessing import LabelEncoder
-from sklearn.cluster import KMeans
-import matplotlib.pyplot as plt
-from sklearn.preprocessing import StandardScaler
-
 # Exibir os dados filtrados
 st.markdown("# **DASHBOARD DA EMPRESA XXXX**")
 
@@ -82,6 +72,7 @@ if cluster_selecionado != 'Escolha uma opção':
 
 
 # Agrupar os dados
+
 dados_filtrados_cluster_selecionado3 = dados_filtrados_loja.groupby(['year_month'])['SOMA'].sum().reset_index()
 
 # Botão para resetar filtros
