@@ -117,7 +117,8 @@ if st.button('Executar Previsão'):
 
     
     # Assuming dados_filtrados_loja is your DataFrame
-    top_10_rep = dados_filtrados_loja[['item']].value_counts()
+    top_100_stores = dados_filtrados_loja[['year_month','item','store', 'sales', 'mean_price', 'SOMA']].nlargest(100, 'SOMA')
+    top_10_rep = top_100_stores[['item']].value_counts()
     top_10_stores = dados_filtrados_loja[['year_month','item','store', 'sales', 'mean_price', 'SOMA']].nlargest(10, 'SOMA')
     top_10_stores.set_index('year_month', inplace=True)
 
