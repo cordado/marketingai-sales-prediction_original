@@ -108,7 +108,7 @@ if st.button('Executar Previsão'):
     plt.plot(previsao_filtered['ds'], previsao_filtered['yhat'], label='Valor Predito', marker='x')
     
     # Adicionando título e rótulos
-    plt.title(f'Comparação entre Valor Real e Valor Predito do Cluster {cluster_selecionado}, da região {regiao_filtrada} e da store {store_selecionado}'))
+    plt.title(f'Comparação entre Valor Real e Valor Predito do Cluster {cluster_selecionado}, da região {regiao_filtrada} e da store {store_selecionado}')
     plt.xlabel('Data')
     plt.ylabel('Valores')
     plt.legend()
