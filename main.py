@@ -8,9 +8,17 @@ import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 
 
+import streamlit as st
+import pandas as pd
+from prophet import Prophet
+import plotly.express as px
+from sklearn.preprocessing import LabelEncoder
+from sklearn.cluster import KMeans
+import matplotlib.pyplot as plt
+from sklearn.preprocessing import StandardScaler
+
 # Exibir os dados filtrados
 st.markdown("# **DASHBOARD DA EMPRESA XXXX**")
-
 
 # Carregar os dados
 dados_frame = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/dados_boston_sem_outliers.csv')
@@ -18,19 +26,18 @@ dados_frame = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/dado
 # Sidebar para filtros
 st.sidebar.header('Escolher o cluster, region e store')
 
-# Seleção da região
-cluster_selecionado = st.sidebar.selectbox('Selecione o Cluster', options=['Escolha uma opção', '0', '1', '2', '3', '4'])
+# Seleção do cluster
+cluster_selecionado = st.sidebar.selectbox('Selecione o Cluster', options=['Escolha uma opção'] + list(dados_frame['Cluster'].unique().astype(str)))
 
-# Carrega o DataFrame correto com base na região selecionada
+# Carrega o DataFrame correto com base no cluster selecionado
 if cluster_selecionado == 'Escolha uma opção':
-    dados_frame_cluster  = dados_frame
+    dados_frame_cluster = dados_frame
 else:
-    dados_frame_cluster = dados_frame[dados_frame['Cluster'] == cluster_selecionado]
+    dados_frame_cluster = dados_frame[dados_frame['Cluster'] == int(cluster_selecionado)]
 
 # Exibir os dados filtrados, se houver
 if cluster_selecionado != 'Escolha uma opção':
     # Painel Geral dos Clusters
-    
     final = dados_frame.groupby(['Cluster'])[['SOMA']].sum().reset_index()
     final['SOMA_TOTAL'] = final['SOMA'].sum()
     final['PERCENTUAL_SOMA'] = final['SOMA'] / final['SOMA_TOTAL']
@@ -55,18 +62,24 @@ if cluster_selecionado != 'Escolha uma opção':
 else:
     st.write("Nenhum cluster selecionado.")
 
-# Seleção da região
+# Seleção da região (após selecionar o cluster)
+if cluster_selecionado != 'Escolha uma opção':
+    regiao_escolhida = st.sidebar.selectbox('Selecione a região', options=['Escolha uma opção'] + list(dados_frame_cluster['region'].unique()))
+    
+    if regiao_escolhida != 'Escolha uma opção':
+        regiao_filtrada = dados_frame_cluster[dados_frame_cluster['region'] == regiao_escolhida]
+        
+        # Seleção da loja (após selecionar a região)
+        store_selecionado = st.sidebar.selectbox('Selecione a Loja', options=['Escolha uma opção'] + list(regiao_filtrada['store'].unique()))
+        
+        if store_selecionado != 'Escolha uma opção':
+            dados_filtrados_loja = regiao_filtrada[regiao_filtrada['store'] == store_selecionado]
+            st.dataframe(dados_filtrados_loja)
+        else:
+            st.write("Nenhuma loja selecionada.")
+    else:
+        st.write("Nenhuma região selecionada.")
 
-regiao_escolhida = st.sidebar.selectbox('Selecione a região', options=dados_frame_cluster['region'].unique())
-
-# Filtra os dados pela região selecionada
-regiao_filtrada = dados_frame_cluster[dados_frame_cluster['region'] == regiao_escolhida]
-
-# Seleção da loja
-store_selecionado = st.sidebar.selectbox('Selecione a Loja', options=regiao_filtrada['store'].unique())
-
-# Filtra os dados pela loja selecionada
-dados_filtrados_loja = regiao_selecionada[regiao_selecionada['store'] == store_selecionado]
 
 # Filtrar os dados
 # dados_filtrados_cluster_selecionado2 = dados_filtrados[(dados_filtrados['Cluster'] == cluster_selecionado) & (dados_filtrados['item'] == item_selecionado) & (dados_filtrados['store'] == store_selecionado)]
