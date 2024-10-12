@@ -64,7 +64,7 @@ if cluster_selecionado != 'Escolha uma opção':
         
         if store_selecionado != 'Escolha uma opção':
             dados_filtrados_loja = regiao_filtrada[regiao_filtrada['store'] == store_selecionado]
-            st.dataframe(dados_filtrados_loja)
+            st.dataframe(dados_filtrados_loja[['region', 'store', 'sales', 'mean_price', 'SOMA']])
         else:
             st.write("Nenhuma loja selecionada.")
     else:
