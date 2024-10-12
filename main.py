@@ -116,6 +116,8 @@ if st.button('Executar Previsão'):
 
     st.dataframe(dados_filtrados_loja[['region', 'store', 'sales', 'mean_price', 'SOMA']])
 
+    plot1 = m.plot(futuro)
+
 
     #
 
