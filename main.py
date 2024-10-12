@@ -72,7 +72,7 @@ if cluster_selecionado != 'Escolha uma opção':
 
 
 # Agrupar os dados
-if dados_filtrados_loja =! 'Escolha uma opção':
+if dados_filtrados_loja != 'Escolha uma opção':
     dados_filtrados_cluster_selecionado3 = dados_filtrados_loja.groupby(['year_month'])['SOMA'].sum().reset_index()
 
 # Botão para resetar filtros
