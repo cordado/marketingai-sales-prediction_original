@@ -81,9 +81,6 @@ if cluster_selecionado != 'Escolha uma opção':
         st.write("Nenhuma região selecionada.")
 
 
-# Filtrar os dados
-# dados_filtrados_cluster_selecionado2 = dados_filtrados[(dados_filtrados['Cluster'] == cluster_selecionado) & (dados_filtrados['item'] == item_selecionado) & (dados_filtrados['store'] == store_selecionado)]
-
 # Agrupar os dados
 dados_filtrados_cluster_selecionado3 = dados_filtrados_loja.groupby(['year_month'])['SOMA'].sum().reset_index()
 
