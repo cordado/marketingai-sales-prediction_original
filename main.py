@@ -118,6 +118,7 @@ if st.button('Executar Previsão'):
     
     # Assuming dados_filtrados_loja is your DataFrame
     top_5_stores = dados_filtrados_loja[['year_month','item','store', 'sales', 'mean_price', 'SOMA']].nlargest(10, 'SOMA')
+    top_5_stores.set_index('year_month', inplace=True)
 
     # Display the DataFrame
     st.dataframe(top_5_stores)
