@@ -64,6 +64,7 @@ if cluster_selecionado != 'Escolha uma opção':
         
         if store_selecionado != 'Escolha uma opção':
             dados_filtrados_loja = regiao_filtrada[regiao_filtrada['store'] == store_selecionado]
+            dados_filtrados_cluster_selecionado3 = dados_filtrados_loja.groupby(['year_month'])['SOMA'].sum().reset_index()
             st.dataframe(dados_filtrados_loja[['region', 'store', 'sales', 'mean_price', 'SOMA']])
         else:
             st.write("Nenhuma loja selecionada.")
@@ -71,9 +72,7 @@ if cluster_selecionado != 'Escolha uma opção':
         st.write("Nenhuma região selecionada.")
 
 
-# Agrupar os dados
-if dados_filtrados_loja != 'Escolha uma opção':
-    dados_filtrados_cluster_selecionado3 = dados_filtrados_loja.groupby(['year_month'])['SOMA'].sum().reset_index()
+    
 
 # Botão para resetar filtros
 if st.sidebar.button('Resetar Filtros'):
