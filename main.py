@@ -121,6 +121,8 @@ if st.button('Executar Previsão'):
     top_5_stores.set_index('year_month', inplace=True)
 
     # Display the DataFrame
+
+    st.write(f'As cinco maiores vendas do Cluster {cluster_selecionado}, da região {regiao_escolhida} e da store {store_selecionado}')
     st.dataframe(top_5_stores)
 
     
