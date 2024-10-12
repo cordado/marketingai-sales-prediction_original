@@ -117,14 +117,18 @@ if st.button('Executar Previsão'):
 
     
     # Assuming dados_filtrados_loja is your DataFrame
-    top_5_stores = dados_filtrados_loja[['year_month','item','store', 'sales', 'mean_price', 'SOMA']].nlargest(10, 'SOMA')
-    top_5_stores.set_index('year_month', inplace=True)
+    top_10_rep = dados_filtrados_loja[['store']].value_counts()
+    top_10_rep.set_index('year_month', inplace=True)
+    top_10_stores = dados_filtrados_loja[['year_month','item','store', 'sales', 'mean_price', 'SOMA']].nlargest(10, 'SOMA')
+    top_10_stores.set_index('year_month', inplace=True)
 
     # Display the DataFrame
 
-    st.write(f'As cinco maiores vendas do Cluster {cluster_selecionado}, da região {regiao_escolhida} e da store {store_selecionado}')
-    st.dataframe(top_5_stores)
+    st.write(f'As dez maiores vendas do Cluster {cluster_selecionado}, da região {regiao_escolhida} e da store {store_selecionado}')
+    st.dataframe(top_10_stores)
 
+    st.write(f'A maior frequência do Cluster {cluster_selecionado}, da região {regiao_escolhida} e da store {store_selecionado}')
+    st.dataframe(top_10_rep)
     
 
 
