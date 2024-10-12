@@ -30,26 +30,26 @@ if cluster_selecionado != 'Escolha uma opção':
     # Painel Geral dos Clusters
     final = dados_frame.groupby(['Cluster'])[['SOMA']].sum().reset_index()
     final['SOMA_TOTAL'] = final['SOMA'].sum()
-    final['PERCENTUAL_SOMA'] = final['SOMA'] / final['SOMA_TOTAL']
+    final['Percentual_Soma'] = final['SOMA'] / final['SOMA_TOTAL']
     final['SOMA'] = final['SOMA'].apply(lambda x: f'${x:,.2f}')
     final['SOMA_TOTAL'] = final['SOMA_TOTAL'].apply(lambda x: f'${x:,.2f}')
-    final['PERCENTUAL_SOMA'] = final['PERCENTUAL_SOMA'].apply(lambda x: f'{x * 100:.2f}%')
+    final['Percentual_Soma'] = final['Percentual_Soma'].apply(lambda x: f'{x * 100:.2f}%')
     final2 = dados_frame.groupby(['Cluster'])[['sales']].sum().reset_index()
     final2['sales_TOTAL'] = final2['sales'].sum()
-    final2['PERCENTUAL_SALES'] = final2['sales'] / final2['sales_TOTAL']
+    final2['Percentual_Sales'] = final2['sales'] / final2['sales_TOTAL']
     final2['sales'] = final2['sales'].apply(lambda x: f'{int(x):,}'.replace(',', '.'))
     final2['sales_TOTAL'] = final2['sales_TOTAL'].apply(lambda x: f'{int(x):,}'.replace(',', '.'))
-    final2['PERCENTUAL_SALES'] = final2['PERCENTUAL_SALES'].apply(lambda x: f'{x * 100:.2f}%')
+    final2['Percentual_Sales'] = final2['Percentual_Sales'].apply(lambda x: f'{x * 100:.2f}%')
     final3 = dados_frame.groupby(['Cluster'])[['mean_price']].mean().reset_index()
     final3['mean_price_TOTAL'] = final3['mean_price'].sum()
-    final3['PERCENTUAL_MEAN'] = final3['mean_price'] / final3['mean_price_TOTAL']
+    final3['Percentual_Means'] = final3['mean_price'] / final3['mean_price_TOTAL']
     final3['mean_price'] = final3['mean_price'].apply(lambda x: f'${x:,.2f}')
     final3['mean_price_TOTAL'] = final3['mean_price_TOTAL'].apply(lambda x: f'${x:,.2f}')
-    final3['PERCENTUAL_MEAN'] = final3['PERCENTUAL_MEAN'].apply(lambda x: f'{x * 100:.2f}%')
+    final3['Percentual_Means'] = final3['Percentual_Means'].apply(lambda x: f'{x * 100:.2f}%')
     finais = pd.merge(final, final2, on='Cluster', how='outer')
     finais = pd.merge(finais, final3, on='Cluster', how='outer')
     finais.set_index('Cluster', inplace=True)
-    st.dataframe(finais[['SOMA', 'PERCENTUAL_SOMA', 'sales', 'PERCENTUAL_SALES', 'mean_price', 'PERCENTUAL_MEAN']])
+    st.dataframe(finais[['SOMA', 'Percentual_Soma', 'sales', 'Percentual_Sales', 'mean_price', 'Percentual_Means']])
 else:
     st.write("Nenhum cluster selecionado.")
 
@@ -66,7 +66,7 @@ if cluster_selecionado != 'Escolha uma opção':
         if store_selecionado != 'Escolha uma opção':
             dados_filtrados_loja = regiao_filtrada[regiao_filtrada['store'] == store_selecionado]
             dados_filtrados_cluster_selecionado3 = dados_filtrados_loja.groupby(['year_month'])['SOMA'].sum().reset_index()
-            st.dataframe(dados_filtrados_loja[['region', 'store', 'sales', 'mean_price', 'SOMA']])
+            dados_filtrados_loja = dados_filtrados_loja[['region', 'store', 'sales', 'mean_price', 'SOMA']])
         else:
             st.write("Nenhuma loja selecionada.")
     else:
@@ -113,6 +113,11 @@ if st.button('Executar Previsão'):
     plt.ylabel('Valores')
     plt.legend()
     st.pyplot(plt)
+
+    st.dataframe(dados_filtrados_loja[['region', 'store', 'sales', 'mean_price', 'SOMA']])
+
+
+    #
 
 
 
