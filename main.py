@@ -116,7 +116,11 @@ if st.button('Executar Previsão'):
 
 
     
-    st.dataframe(dados_filtrados_loja[['region', 'store', 'sales', 'mean_price', 'SOMA']]).nlargest(5, 'SOMA')
+    # Assuming dados_filtrados_loja is your DataFrame
+    top_5_stores = dados_filtrados_loja[['region', 'store', 'sales', 'mean_price', 'SOMA']].nlargest(5, 'SOMA')
+
+    # Display the DataFrame
+    st.dataframe(top_5_stores)
 
     
 
