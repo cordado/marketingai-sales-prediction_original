@@ -78,12 +78,10 @@ if cluster_selecionado != 'Escolha uma opção':
 if st.sidebar.button('Resetar Filtros'):
     dados_filtrados_cluster_selecionado3 = dados_frame.groupby(['year_month'])['SOMA'].sum().reset_index()
 
-# Preparar os dados para o Prophet
-dados_prophet = dados_filtrados_cluster_selecionado3.rename(columns={'year_month': 'ds', 'SOMA': 'y'})
-
 
 # Botão para executar a previsão
 if st.button('Executar Previsão'):
+    dados_prophet = dados_filtrados_cluster_selecionado3.rename(columns={'year_month': 'ds', 'SOMA': 'y'})
     modelo = Prophet(interval_width=0.95, daily_seasonality=False)
     modelo.fit(dados_prophet)
     futuro = modelo.make_future_dataframe(periods=20, freq='MS')
