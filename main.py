@@ -30,6 +30,7 @@ else:
 # Exibir os dados filtrados, se houver
 if cluster_selecionado != 'Escolha uma opção':
     # Painel Geral dos Clusters
+    
     final = dados_frame.groupby(['Cluster'])[['SOMA']].sum().reset_index()
     final['SOMA_TOTAL'] = final['SOMA'].sum()
     final['PERCENTUAL_SOMA'] = final['SOMA'] / final['SOMA_TOTAL']
@@ -56,13 +57,13 @@ else:
 
 # Seleção da região
 
-regiao_selecionada = st.sidebar.selectbox('Selecione a região', options=dados_frame_cluster['region'].unique())
+regiao_escolhida = st.sidebar.selectbox('Selecione a região', options=dados_frame_cluster['region'].unique())
 
 # Filtra os dados pela região selecionada
-regiao_selecionada = dados_frame_cluster[dados_frame_cluster['region'] == regiao_selecionada]
+regiao_filtrada = dados_frame_cluster[dados_frame_cluster['region'] == regiao_escolhida]
 
 # Seleção da loja
-store_selecionado = st.sidebar.selectbox('Selecione a Loja', options=regiao_selecionada['store'].unique())
+store_selecionado = st.sidebar.selectbox('Selecione a Loja', options=regiao_filtrada['store'].unique())
 
 # Filtra os dados pela loja selecionada
 dados_filtrados_loja = regiao_selecionada[regiao_selecionada['store'] == store_selecionado]
