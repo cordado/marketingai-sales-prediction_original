@@ -119,7 +119,7 @@ if cluster_selecionado != 'Escolha uma opção':
             
                 st.write(f'A maior frequência do Cluster {cluster_selecionado}, da região {regiao_escolhida} e da store {store_selecionado}')
                 st.dataframe(top_10_rep)
-    else:
+        else:
             st.write("Nenhuma loja selecionada.")
     else:
         st.write("Nenhuma região selecionada.")
