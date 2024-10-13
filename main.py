@@ -69,58 +69,58 @@ if cluster_selecionado != 'Escolha uma opção':
             dados_filtrados_loja = regiao_filtrada[regiao_filtrada['store'] == store_selecionado]
             dados_filtrados_cluster_selecionado3 = dados_filtrados_loja.groupby(['year_month'])['SOMA'].sum().reset_index()
             dados_filtrados_loja = dados_filtrados_loja[['year_month','item', 'region', 'store', 'sales', 'mean_price', 'SOMA']]
-                if st.button('Executar Previsão'):
-        dados_prophet = dados_filtrados_cluster_selecionado3.rename(columns={'year_month': 'ds', 'SOMA': 'y'})
-        modelo = Prophet(interval_width=0.95, daily_seasonality=False)
-        modelo.fit(dados_prophet)
-        futuro = modelo.make_future_dataframe(periods=20, freq='MS')
-        previsao = modelo.predict(futuro)
-    
-        # Plotar os resultados
-        fig = px.line(previsao, x='ds', y='yhat', title='Previsão com Prophet')
-    
-        df_real = pd.DataFrame(dados_prophet)
-        df_real['ds'] = pd.to_datetime(df_real['ds'])
-        previsao['ds'] = pd.to_datetime(previsao['ds'])
-    
-        # Filtrar df_real até 2015-12-01 e previsao igual ou acima de 2016-01-01
-        df_real_filtered = df_real[df_real['ds'] <= '2015-12-01']
-        previsao_filtered = previsao[previsao['ds'] >= '2016-01-01']
-    
-        # Concatenar os DataFrames filtrados
-        df_merged = pd.concat([df_real_filtered, previsao_filtered[['ds', 'yhat']]], axis=0).reset_index(drop=True)
-    
-         # Plotar os valores reais vs preditos usando Matplotlib e Streamlit
-        plt.figure(figsize=(10, 5))
-        plt.plot(df_real_filtered['ds'], df_real_filtered['y'], label='Valor Real', marker='o')
-        plt.plot(previsao_filtered['ds'], previsao_filtered['yhat'], label='Valor Predito', marker='x')
-        
-        # Adicionando título e rótulos
-        plt.title(f'Previsão do Cluster {cluster_selecionado}, da região {regiao_escolhida} e da store {store_selecionado}')
-        plt.xlabel('Data')
-        plt.ylabel('Valores')
-        plt.legend()
-        st.pyplot(plt)
-    
-    
-        
-        # Assuming dados_filtrados_loja is your DataFrame
-        top_100_stores = dados_filtrados_loja[['year_month','item','store', 'sales', 'mean_price', 'SOMA']].nlargest(200, 'SOMA')
-        top_10_rep = top_100_stores[['item']].value_counts()
-        top_10_stores = dados_filtrados_loja[['year_month','item','store', 'sales', 'mean_price', 'SOMA']].nlargest(10, 'SOMA') 
-        top_10_stores.set_index('year_month', inplace=True)
-    
-        # Display the DataFrame
-    
-        st.write(f'As dez maiores vendas do Cluster {cluster_selecionado}, da região {regiao_escolhida} e da store {store_selecionado}')
-        st.dataframe(top_10_stores)
-        
-        st.markdown("---")
-    
-        st.write(f'A maior frequência do Cluster {cluster_selecionado}, da região {regiao_escolhida} e da store {store_selecionado}')
-        st.dataframe(top_10_rep)
-else:
-    st.write("Por favor, selecione uma loja para executar a previsão.") 
+            if st.button('Executar Previsão'):
+                dados_prophet = dados_filtrados_cluster_selecionado3.rename(columns={'year_month': 'ds', 'SOMA': 'y'})
+                modelo = Prophet(interval_width=0.95, daily_seasonality=False)
+                modelo.fit(dados_prophet)
+                futuro = modelo.make_future_dataframe(periods=20, freq='MS')
+                previsao = modelo.predict(futuro)
+            
+                # Plotar os resultados
+                fig = px.line(previsao, x='ds', y='yhat', title='Previsão com Prophet')
+            
+                df_real = pd.DataFrame(dados_prophet)
+                df_real['ds'] = pd.to_datetime(df_real['ds'])
+                previsao['ds'] = pd.to_datetime(previsao['ds'])
+            
+                # Filtrar df_real até 2015-12-01 e previsao igual ou acima de 2016-01-01
+                df_real_filtered = df_real[df_real['ds'] <= '2015-12-01']
+                previsao_filtered = previsao[previsao['ds'] >= '2016-01-01']
+            
+                # Concatenar os DataFrames filtrados
+                df_merged = pd.concat([df_real_filtered, previsao_filtered[['ds', 'yhat']]], axis=0).reset_index(drop=True)
+            
+                 # Plotar os valores reais vs preditos usando Matplotlib e Streamlit
+                plt.figure(figsize=(10, 5))
+                plt.plot(df_real_filtered['ds'], df_real_filtered['y'], label='Valor Real', marker='o')
+                plt.plot(previsao_filtered['ds'], previsao_filtered['yhat'], label='Valor Predito', marker='x')
+                
+                # Adicionando título e rótulos
+                plt.title(f'Previsão do Cluster {cluster_selecionado}, da região {regiao_escolhida} e da store {store_selecionado}')
+                plt.xlabel('Data')
+                plt.ylabel('Valores')
+                plt.legend()
+                st.pyplot(plt)
+            
+            
+                
+                # Assuming dados_filtrados_loja is your DataFrame
+                top_100_stores = dados_filtrados_loja[['year_month','item','store', 'sales', 'mean_price', 'SOMA']].nlargest(200, 'SOMA')
+                top_10_rep = top_100_stores[['item']].value_counts()
+                top_10_stores = dados_filtrados_loja[['year_month','item','store', 'sales', 'mean_price', 'SOMA']].nlargest(10, 'SOMA') 
+                top_10_stores.set_index('year_month', inplace=True)
+            
+                # Display the DataFrame
+            
+                st.write(f'As dez maiores vendas do Cluster {cluster_selecionado}, da região {regiao_escolhida} e da store {store_selecionado}')
+                st.dataframe(top_10_stores)
+                
+                st.markdown("---")
+            
+                st.write(f'A maior frequência do Cluster {cluster_selecionado}, da região {regiao_escolhida} e da store {store_selecionado}')
+                st.dataframe(top_10_rep)
+    else:
+        st.write("Por favor, selecione uma loja para executar a previsão.") 
         else:
             st.write("Nenhuma loja selecionada.")
     else:
