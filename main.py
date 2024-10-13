@@ -64,13 +64,7 @@ if cluster_selecionado != 'Escolha uma opção':
     'Percentual_Means': ['100.00%']
     })
     
-    # Formatar os valores da soma final
-    soma_final['SOMA'] = soma_final['SOMA'].apply(lambda x: f'${x:,.2f}')
-    soma_final['SOMA_TOTAL'] = soma_final['SOMA_TOTAL'].apply(lambda x: f'${x:,.2f}')
-    soma_final['sales'] = soma_final['sales'].apply(lambda x: f'{int(x):,}'.replace(',', '.'))
-    soma_final['sales_TOTAL'] = soma_final['sales_TOTAL'].apply(lambda x: f'{int(x):,}'.replace(',', '.'))
-    soma_final['mean_price'] = soma_final['mean_price'].apply(lambda x: f'${x:,.2f}')
-    soma_final['mean_price_TOTAL'] = soma_final['mean_price_TOTAL'].apply(lambda x: f'${x:,.2f}')
+
     
     # Adicionar a linha de soma ao DataFrame finais
     finais = pd.concat([finais, soma_final], ignore_index=True)
