@@ -66,7 +66,7 @@ if cluster_selecionado != 'Escolha uma opção':
         if store_selecionado != 'Escolha uma opção':
             dados_filtrados_loja = regiao_filtrada[regiao_filtrada['store'] == store_selecionado]
             dados_filtrados_cluster_selecionado3 = dados_filtrados_loja.groupby(['year_month'])['SOMA'].sum().reset_index()
-            dados_filtrados_loja = dados_filtrados_loja[['year_month','item', 'region', 'store', 'sales', 'mean_price', 'SOMA']]
+            dados_filtrados_loja = dados_filtrados_loja[['year_month','item', 'region', 'store', 'sales', 'mean_price', 'SOMA']].style.set_properties(**{'text-align': 'center'}) 
         else:
             st.write("Nenhuma loja selecionada.")
     else:
