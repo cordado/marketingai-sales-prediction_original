@@ -53,14 +53,14 @@ if cluster_selecionado != 'Escolha uma opção':
     finais.set_index('Cluster', inplace=True)
     soma_final = pd.DataFrame({
     'Cluster': ['Total'],
-    'SOMA': [dados_frame['SOMA'].sum()],
-    'SOMA_TOTAL': [dados_frame['SOMA'].sum()],
+    'SOMA': [finais['SOMA'].sum()],
+    'SOMA_TOTAL': [finais['SOMA'].sum()],
     'Percentual_Soma': ['100.00%'],
-    'sales': [dados_frame['sales'].sum()],
-    'sales_TOTAL': [dados_frame['sales'].sum()],
+    'sales': [finais['sales'].sum()],
+    'sales_TOTAL': [finais['sales'].sum()],
     'Percentual_Sales': ['100.00%'],
-    'mean_price': [dados_frame['mean_price'].sum()],
-    'mean_price_TOTAL': [dados_frame['mean_price'].sum()],
+    'mean_price': [finais['mean_price'].sum()],
+    'mean_price_TOTAL': [finais['mean_price'].sum()],
     'Percentual_Means': ['100.00%']
     })
     
