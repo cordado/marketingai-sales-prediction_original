@@ -55,9 +55,7 @@ if cluster_selecionado != 'Escolha uma opção':
     'Percentual_Means': ['100.00%']
 })
 
-    finais = pd.merge(final, final2, on='Cluster', how='outer')
-    finais = pd.merge(finais, final3, on='Cluster', how='outer')
-    finais.set_index('Cluster', inplace=True)
+
     final['SOMA'] = final['SOMA'].apply(lambda x: f'${x:,.2f}')
     final['SOMA_TOTAL'] = final['SOMA_TOTAL'].apply(lambda x: f'${x:,.2f}')
     final['Percentual_Soma'] = final['Percentual_Soma'].apply(lambda x: f'{x * 100:.2f}%')
@@ -67,6 +65,10 @@ if cluster_selecionado != 'Escolha uma opção':
     final3['mean_price'] = final3['mean_price'].apply(lambda x: f'${x:,.2f}')
     final3['mean_price_TOTAL'] = final3['mean_price_TOTAL'].apply(lambda x: f'${x:,.2f}')
     final3['Percentual_Means'] = final3['Percentual_Means'].apply(lambda x: f'{x * 100:.2f}%')
+
+    finais = pd.merge(final, final2, on='Cluster', how='outer')
+    finais = pd.merge(finais, final3, on='Cluster', how='outer')
+    finais.set_index('Cluster', inplace=True)
     
     # Adicionar a linha de soma ao DataFrame finais
     finais = pd.concat([finais, soma_final], ignore_index=True)
