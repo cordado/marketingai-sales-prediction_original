@@ -33,38 +33,40 @@ if cluster_selecionado != 'Escolha uma opção':
     final = dados_frame.groupby(['Cluster'])[['SOMA']].median().reset_index()
     final['SOMA_TOTAL'] = final['SOMA'].sum()
     final['Percentual_Soma'] = final['SOMA'] / final['SOMA_TOTAL']
-    final['SOMA'] = final['SOMA'].apply(lambda x: f'${x:,.2f}')
-    final['SOMA_TOTAL'] = final['SOMA_TOTAL'].apply(lambda x: f'${x:,.2f}')
-    final['Percentual_Soma'] = final['Percentual_Soma'].apply(lambda x: f'{x * 100:.2f}%')
+
     final2 = dados_frame.groupby(['Cluster'])[['sales']].median().reset_index()
     final2['sales_TOTAL'] = final2['sales'].sum()
     final2['Percentual_Sales'] = final2['sales'] / final2['sales_TOTAL']
-    final2['sales'] = final2['sales'].apply(lambda x: f'{int(x):,}'.replace(',', '.'))
-    final2['sales_TOTAL'] = final2['sales_TOTAL'].apply(lambda x: f'{int(x):,}'.replace(',', '.'))
-    final2['Percentual_Sales'] = final2['Percentual_Sales'].apply(lambda x: f'{x * 100:.2f}%')
+
     final3 = dados_frame.groupby(['Cluster'])[['mean_price']].median().reset_index()
     final3['mean_price_TOTAL'] = final3['mean_price'].sum()
     final3['Percentual_Means'] = final3['mean_price'] / final3['mean_price_TOTAL']
-    final3['mean_price'] = final3['mean_price'].apply(lambda x: f'${x:,.2f}')
-    final3['mean_price_TOTAL'] = final3['mean_price_TOTAL'].apply(lambda x: f'${x:,.2f}')
-    final3['Percentual_Means'] = final3['Percentual_Means'].apply(lambda x: f'{x * 100:.2f}%')
+
+    soma_final = pd.DataFrame({
+    'Cluster': ['Total'],
+    'SOMA': [final['SOMA'].sum()],
+    'SOMA_TOTAL': [final['SOMA'].sum()],
+    'Percentual_Soma': ['100.00%'],
+    'sales': [final2['sales'].sum()],
+    'sales_TOTAL': [final2['sales'].sum()],
+    'Percentual_Sales': ['100.00%'],
+    'mean_price': [final3['mean_price'].sum()],
+    'mean_price_TOTAL': [final3['mean_price'].sum()],
+    'Percentual_Means': ['100.00%']
+})
+
     finais = pd.merge(final, final2, on='Cluster', how='outer')
     finais = pd.merge(finais, final3, on='Cluster', how='outer')
     finais.set_index('Cluster', inplace=True)
-    soma_final = pd.DataFrame({
-    'Cluster': ['Total'],
-    'SOMA': [finais['SOMA'].sum()],
-    'SOMA_TOTAL': [finais['SOMA'].sum()],
-    'Percentual_Soma': ['100.00%'],
-    'sales': [finais['sales'].sum()],
-    'sales_TOTAL': [finais['sales'].sum()],
-    'Percentual_Sales': ['100.00%'],
-    'mean_price': [finais['mean_price'].sum()],
-    'mean_price_TOTAL': [finais['mean_price'].sum()],
-    'Percentual_Means': ['100.00%']
-    })
-    
-
+    final['SOMA'] = final['SOMA'].apply(lambda x: f'${x:,.2f}')
+    final['SOMA_TOTAL'] = final['SOMA_TOTAL'].apply(lambda x: f'${x:,.2f}')
+    final['Percentual_Soma'] = final['Percentual_Soma'].apply(lambda x: f'{x * 100:.2f}%')
+    final2['sales'] = final2['sales'].apply(lambda x: f'{int(x):,}'.replace(',', '.'))
+    final2['sales_TOTAL'] = final2['sales_TOTAL'].apply(lambda x: f'{int(x):,}'.replace(',', '.'))
+    final2['Percentual_Sales'] = final2['Percentual_Sales'].apply(lambda x: f'{x * 100:.2f}%')
+    final3['mean_price'] = final3['mean_price'].apply(lambda x: f'${x:,.2f}')
+    final3['mean_price_TOTAL'] = final3['mean_price_TOTAL'].apply(lambda x: f'${x:,.2f}')
+    final3['Percentual_Means'] = final3['Percentual_Means'].apply(lambda x: f'{x * 100:.2f}%')
     
     # Adicionar a linha de soma ao DataFrame finais
     finais = pd.concat([finais, soma_final], ignore_index=True)
