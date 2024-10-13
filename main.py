@@ -30,19 +30,19 @@ else:
 # Exibir os dados filtrados, se houver
 if cluster_selecionado != 'Escolha uma opção':
     # Painel Geral dos Clusters
-    final = dados_frame.groupby(['Cluster'])[['SOMA']].mean().reset_index()
+    final = dados_frame.groupby(['Cluster'])[['SOMA']].median().reset_index()
     final['SOMA_TOTAL'] = final['SOMA'].sum()
     final['Percentual_Soma'] = final['SOMA'] / final['SOMA_TOTAL']
     final['SOMA'] = final['SOMA'].apply(lambda x: f'${x:,.2f}')
     final['SOMA_TOTAL'] = final['SOMA_TOTAL'].apply(lambda x: f'${x:,.2f}')
     final['Percentual_Soma'] = final['Percentual_Soma'].apply(lambda x: f'{x * 100:.2f}%')
-    final2 = dados_frame.groupby(['Cluster'])[['sales']].mean().reset_index()
+    final2 = dados_frame.groupby(['Cluster'])[['sales']].median().reset_index()
     final2['sales_TOTAL'] = final2['sales'].sum()
     final2['Percentual_Sales'] = final2['sales'] / final2['sales_TOTAL']
     final2['sales'] = final2['sales'].apply(lambda x: f'{int(x):,}'.replace(',', '.'))
     final2['sales_TOTAL'] = final2['sales_TOTAL'].apply(lambda x: f'{int(x):,}'.replace(',', '.'))
     final2['Percentual_Sales'] = final2['Percentual_Sales'].apply(lambda x: f'{x * 100:.2f}%')
-    final3 = dados_frame.groupby(['Cluster'])[['mean_price']].mean().reset_index()
+    final3 = dados_frame.groupby(['Cluster'])[['mean_price']].median().reset_index()
     final3['mean_price_TOTAL'] = final3['mean_price'].sum()
     final3['Percentual_Means'] = final3['mean_price'] / final3['mean_price_TOTAL']
     final3['mean_price'] = final3['mean_price'].apply(lambda x: f'${x:,.2f}')
