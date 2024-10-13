@@ -54,7 +54,9 @@ if cluster_selecionado != 'Escolha uma opção':
     'mean_price_TOTAL': [final3['mean_price'].sum()],
     'Percentual_Means': ['100.00%']
 })
-
+    soma_final['SOMA'] = soma_final['SOMA'].apply(lambda x: f'${x:,.2f}')
+    soma_final['sales'] = soma_final['sales'].apply(lambda x: f'{int(x):,}'.replace(',', '.'))
+    soma_final['mean_price'] = soma_final['mean_price'].apply(lambda x: f'${x:,.2f}')
 
     final['SOMA'] = final['SOMA'].apply(lambda x: f'${x:,.2f}')
     final['SOMA_TOTAL'] = final['SOMA_TOTAL'].apply(lambda x: f'${x:,.2f}')
@@ -68,7 +70,6 @@ if cluster_selecionado != 'Escolha uma opção':
 
     finais = pd.merge(final, final2, on='Cluster', how='outer')
     finais = pd.merge(finais, final3, on='Cluster', how='outer')
-    finais.set_index('Cluster', inplace=True)
     
     # Adicionar a linha de soma ao DataFrame finais
     finais = pd.concat([finais, soma_final], ignore_index=True)
