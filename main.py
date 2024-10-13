@@ -117,7 +117,7 @@ if cluster_selecionado != 'Escolha uma opção':
                 
                 st.markdown("---")
             
-                st.write(f'A maior frequência do Cluster {cluster_selecionado}, da região {regiao_escolhida} e da store {store_selecionado}')
+                st.write(f'Dos 100 produtos mais vendidos do Cluster {cluster_selecionado}, da região {regiao_escolhida} e da store {store_selecionado}' os items que mais aparecem:)
                 st.dataframe(top_10_rep)
         else:
             st.write("Nenhuma loja selecionada.")
