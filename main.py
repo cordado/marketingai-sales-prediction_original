@@ -91,7 +91,7 @@ if cluster_selecionado != 'Escolha uma opção':
                 df_merged = pd.concat([df_real_filtered, previsao_filtered[['ds', 'yhat']]], axis=0).reset_index(drop=True)
             
                  # Plotar os valores reais vs preditos usando Matplotlib e Streamlit
-                plt.figure(figsize=(10, 5))
+                plt.figure(figsize=(6, 3))
                 plt.plot(df_real_filtered['ds'], df_real_filtered['y'], label='Valor Real', marker='o')
                 plt.plot(previsao_filtered['ds'], previsao_filtered['yhat'], label='Valor Predito', marker='x')
                 
