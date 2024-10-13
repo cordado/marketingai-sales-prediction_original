@@ -128,6 +128,8 @@ if st.button('Executar Previsão'):
 
     st.write(f'As dez maiores vendas do Cluster {cluster_selecionado}, da região {regiao_escolhida} e da store {store_selecionado}')
     st.dataframe(top_10_stores)
+    
+    st.markdown("---")
 
     st.write(f'A maior frequência do Cluster {cluster_selecionado}, da região {regiao_escolhida} e da store {store_selecionado}')
     st.dataframe(top_10_rep)
