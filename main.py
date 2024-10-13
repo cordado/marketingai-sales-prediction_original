@@ -77,7 +77,7 @@ if cluster_selecionado != 'Escolha uma opção':
     # Definir o índice como 'Cluster'
     finais.set_index('Cluster', inplace=True)
 
-    st.table(finais[['SOMA', 'Percentual_Soma', 'sales', 'Percentual_Sales', 'mean_price', 'Percentual_Means']])
+    st.dataframe(finais[['SOMA', 'Percentual_Soma', 'sales', 'Percentual_Sales', 'mean_price', 'Percentual_Means']])
     
 else:
     st.write("Nenhum cluster selecionado.")
