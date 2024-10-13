@@ -69,22 +69,7 @@ if cluster_selecionado != 'Escolha uma opção':
             dados_filtrados_loja = regiao_filtrada[regiao_filtrada['store'] == store_selecionado]
             dados_filtrados_cluster_selecionado3 = dados_filtrados_loja.groupby(['year_month'])['SOMA'].sum().reset_index()
             dados_filtrados_loja = dados_filtrados_loja[['year_month','item', 'region', 'store', 'sales', 'mean_price', 'SOMA']]
-        else:
-            st.write("Nenhuma loja selecionada.")
-    else:
-        st.write("Nenhuma região selecionada.")
-
-
-    
-
-# Botão para resetar filtros
-if st.sidebar.button('Resetar Filtros'):
-    dados_filtrados_cluster_selecionado3 = dados_frame.groupby(['year_month'])['SOMA'].sum().reset_index()
-
-
-# Botão para executar a previsão
-if store_selecionado != 'Escolha uma opção':
-    if st.button('Executar Previsão'):
+                if st.button('Executar Previsão'):
         dados_prophet = dados_filtrados_cluster_selecionado3.rename(columns={'year_month': 'ds', 'SOMA': 'y'})
         modelo = Prophet(interval_width=0.95, daily_seasonality=False)
         modelo.fit(dados_prophet)
@@ -135,10 +120,23 @@ if store_selecionado != 'Escolha uma opção':
         st.write(f'A maior frequência do Cluster {cluster_selecionado}, da região {regiao_escolhida} e da store {store_selecionado}')
         st.dataframe(top_10_rep)
 else:
-    st.write("Por favor, selecione uma loja para executar a previsão.")        
+    st.write("Por favor, selecione uma loja para executar a previsão.") 
+        else:
+            st.write("Nenhuma loja selecionada.")
+    else:
+        st.write("Nenhuma região selecionada.")
+
+
+    
+
+# Botão para resetar filtros
+if st.sidebar.button('Resetar Filtros'):
+    dados_filtrados_cluster_selecionado3 = dados_frame.groupby(['year_month'])['SOMA'].sum().reset_index()
+
+       
     
     
-        #
+
 
 
 
