@@ -51,7 +51,6 @@ if cluster_selecionado != 'Escolha uma opção':
     finais = pd.merge(final, final2, on='Cluster', how='outer')
     finais = pd.merge(finais, final3, on='Cluster', how='outer')
     finais.set_index('Cluster', inplace=True)
-    finais = finais.style.set_properties(**{'text-align': 'center'})
     st.table(finais[['SOMA', 'Percentual_Soma', 'sales', 'Percentual_Sales', 'mean_price', 'Percentual_Means']])
 else:
     st.write("Nenhum cluster selecionado.")
