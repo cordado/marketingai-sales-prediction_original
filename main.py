@@ -51,7 +51,35 @@ if cluster_selecionado != 'Escolha uma opção':
     finais = pd.merge(final, final2, on='Cluster', how='outer')
     finais = pd.merge(finais, final3, on='Cluster', how='outer')
     finais.set_index('Cluster', inplace=True)
+    soma_final = pd.DataFrame({
+    'Cluster': ['Total'],
+    'SOMA': [dados_frame['SOMA'].sum()],
+    'SOMA_TOTAL': [dados_frame['SOMA'].sum()],
+    'Percentual_Soma': ['100.00%'],
+    'sales': [dados_frame['sales'].sum()],
+    'sales_TOTAL': [dados_frame['sales'].sum()],
+    'Percentual_Sales': ['100.00%'],
+    'mean_price': [dados_frame['mean_price'].sum()],
+    'mean_price_TOTAL': [dados_frame['mean_price'].sum()],
+    'Percentual_Means': ['100.00%']
+    })
+    
+    # Formatar os valores da soma final
+    soma_final['SOMA'] = soma_final['SOMA'].apply(lambda x: f'${x:,.2f}')
+    soma_final['SOMA_TOTAL'] = soma_final['SOMA_TOTAL'].apply(lambda x: f'${x:,.2f}')
+    soma_final['sales'] = soma_final['sales'].apply(lambda x: f'{int(x):,}'.replace(',', '.'))
+    soma_final['sales_TOTAL'] = soma_final['sales_TOTAL'].apply(lambda x: f'{int(x):,}'.replace(',', '.'))
+    soma_final['mean_price'] = soma_final['mean_price'].apply(lambda x: f'${x:,.2f}')
+    soma_final['mean_price_TOTAL'] = soma_final['mean_price_TOTAL'].apply(lambda x: f'${x:,.2f}')
+    
+    # Adicionar a linha de soma ao DataFrame finais
+    finais = pd.concat([finais, soma_final], ignore_index=True)
+    
+    # Definir o índice como 'Cluster'
+    finais.set_index('Cluster', inplace=True)
+
     st.table(finais[['SOMA', 'Percentual_Soma', 'sales', 'Percentual_Sales', 'mean_price', 'Percentual_Means']])
+    
 else:
     st.write("Nenhum cluster selecionado.")
 
