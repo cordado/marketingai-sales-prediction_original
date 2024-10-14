@@ -11,7 +11,8 @@ from sklearn.preprocessing import StandardScaler
 st.markdown("# **DASHBOARD DA EMPRESA XXXX**")
 
 # Carregar os dados
-dados_frame = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/dados_boston_sem_outliers.csv')
+dados_frame = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/merge_df.csv')
+# dados_frame = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/dados_boston_sem_outliers.csv')
 dados_frame['region'] = dados_frame['region'].replace({0: 'Boston', 1: 'New York', 2: 'Philadelphia'})
 dados_frame['cluster'] = dados_frame['region'].replace({0: 'Boston', 1: 'São Paulo'})
 
