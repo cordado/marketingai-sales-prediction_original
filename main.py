@@ -45,7 +45,7 @@ if cluster_selecionado != 'Escolha uma opção':
     final3['Percentual_Means'] = final3['mean_price'] / final3['mean_price_TOTAL']
 
     finais_analise = pd.merge(final, final2, on='Cluster', how='outer')
-    finais_analise = pd.merge(finais, final3, on='Cluster', how='outer')
+    finais_analise = pd.merge(finais_analise, final3, on='Cluster', how='outer')
     
     
     # Definir o índice como 'Cluster'
