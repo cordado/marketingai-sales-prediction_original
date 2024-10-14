@@ -93,11 +93,7 @@ if cluster_selecionado != 'Escolha uma opção':
             return "baixo"
 
     # Mensagem para o maior percentual de soma
-    mensagem = (f"O cluster {maior_soma['Cluster']} possui o maior percentual de soma ({maior_soma['Percentual_Soma']}%),
-            f"utilizando a mediana ({dados_frame['SOMA'].median()}), sendo que em sales possui uma mediana de "
-            f"{maior_soma['sales']}, sendo um dado {determinar_nivel(maior_soma['sales'])} e o mean_price de "
-            f"{maior_soma['mean_price']}, sendo um dado {determinar_nivel(maior_soma['mean_price'])}. "
-            "Portanto é a melhor escolha.")
+    mensagem = (f"O cluster {maior_soma['Cluster']} possui o maior percentual de soma" 
 
     # Exibir a mensagem no Streamlit
     st.write(mensagem)
