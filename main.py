@@ -95,7 +95,7 @@ if cluster_selecionado != 'Escolha uma opção':
             return "baixo"
 
     # Mensagem para o maior percentual de soma
-    mensagem = (f"O cluster {finais_analise['Cluster']} possui o maior percentual de soma ({finais_analise['Percentual_Soma']})")
+    mensagem = (f"O cluster {maior_soma['Cluster']} possui o maior percentual de soma ({maior_soma['Percentual_Soma']})")
 
     # Exibir a mensagem no Streamlit
     st.write(mensagem)
