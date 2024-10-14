@@ -83,8 +83,6 @@ if cluster_selecionado != 'Escolha uma opção':
     # Adicionar a linha de soma ao DataFrame finais
     finais = pd.concat([finais, soma_final], ignore_index=True)
     
-    # Definir o índice como 'Cluster'
-    finais.set_index('Cluster', inplace=True)
 
     st.dataframe(finais[['SOMA', 'Percentual_Soma', 'sales', 'Percentual_Sales', 'mean_price', 'Percentual_Means']])
 
