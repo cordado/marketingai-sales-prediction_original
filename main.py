@@ -21,13 +21,13 @@ dados_frame['region'] = dados_frame['region'].replace({0: 'Boston', 1: 'New York
 st.sidebar.header('Escolher o cluster, region e store')
 
 # Seleção do cluster
-cluster_selecionado = st.sidebar.selectbox('Selecione o Cluster', options=['Escolha uma opção'] + list(dados_frame['cluster'].unique().astype(str)))
+cluster_selecionado = st.sidebar.selectbox('Selecione o Cluster', options=['Escolha uma opção'] + list(dados_frame['Cluster'].unique().astype(str)))
 
 # Carrega o DataFrame correto com base no cluster selecionado
 if cluster_selecionado == 'Escolha uma opção':
     dados_frame_cluster = dados_frame
 else:
-    dados_frame_cluster = dados_frame[dados_frame['cluster'] == int(cluster_selecionado)]
+    dados_frame_cluster = dados_frame[dados_frame['Cluster'] == int(cluster_selecionado)]
 
 # Exibir os dados filtrados, se houver
 if cluster_selecionado != 'Escolha uma opção':
