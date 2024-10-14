@@ -33,6 +33,7 @@ else:
 if cluster_selecionado != 'Escolha uma opção':
     # Painel Geral dos Clusters
     final = dados_frame.groupby(['Cluster'])[['SOMA']].median().reset_index()
+    final_frase = dados_frame.groupby(['Cluster'])[['SOMA']].median().reset_index()
     final['SOMA_TOTAL'] = final['SOMA'].sum()
     final['Percentual_Soma'] = final['SOMA'] / final['SOMA_TOTAL']
 
@@ -81,7 +82,7 @@ if cluster_selecionado != 'Escolha uma opção':
 
     st.dataframe(finais[['SOMA', 'Percentual_Soma', 'sales', 'Percentual_Sales', 'mean_price', 'Percentual_Means']])
 
-    maior_soma = final.loc[final['SOMA'].idxmax()]
+    maior_soma = final_frase.loc[final_frase['SOMA'].idxmax()]
 
 #     Determinar se o valor é alto/médio/baixo
     def determinar_nivel(valor):
@@ -93,7 +94,7 @@ if cluster_selecionado != 'Escolha uma opção':
             return "baixo"
 
     # Mensagem para o maior percentual de soma
-    mensagem = (f"O cluster {maior_soma['Cluster']} possui o maior percentual de soma ({maior_soma['Percentual_Soma']}%)")
+    mensagem = (f"O cluster {maior_soma['Cluster']} possui o maior percentual de soma ({maior_soma['Percentual_Soma']})")
 
     # Exibir a mensagem no Streamlit
     st.write(mensagem)
