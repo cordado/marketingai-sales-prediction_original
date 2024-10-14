@@ -48,9 +48,6 @@ if cluster_selecionado != 'Escolha uma opção':
     finais_analise = pd.merge(finais_analise, final3, on='Cluster', how='outer')
     
     
-    # Definir o índice como 'Cluster'
-    finais_analise.set_index('Cluster', inplace=True)
-    
     soma_final = pd.DataFrame({
     'Cluster': ['Total'],
     'SOMA': [final['SOMA'].sum()],
