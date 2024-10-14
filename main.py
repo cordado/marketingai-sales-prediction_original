@@ -47,8 +47,6 @@ if cluster_selecionado != 'Escolha uma opção':
     finais_analise = pd.merge(final, final2, on='Cluster', how='outer')
     finais_analise = pd.merge(finais, final3, on='Cluster', how='outer')
     
-    # Adicionar a linha de soma ao DataFrame finais
-    finais_analise = pd.concat([finais, soma_final], ignore_index=True)
     
     # Definir o índice como 'Cluster'
     finais_analise.set_index('Cluster', inplace=True)
