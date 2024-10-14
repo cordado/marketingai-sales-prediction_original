@@ -80,6 +80,26 @@ if cluster_selecionado != 'Escolha uma opção':
     finais.set_index('Cluster', inplace=True)
 
     st.dataframe(finais[['SOMA', 'Percentual_Soma', 'sales', 'Percentual_Sales', 'mean_price', 'Percentual_Means']])
+
+    maior_soma = dados_frame.loc[dados_frame['SOMA'].idxmax()]
+
+#     Determinar se o valor é alto/médio/baixo
+    def determinar_nivel(valor):
+    if valor > dados_frame['SOMA'].median():
+        return "alto"
+    elif valor > dados_frame['SOMA'].quantile(0.25):
+        return "médio"
+    else:
+        return "baixo"
+
+    # Mensagem para o maior percentual de soma
+    st.write(f'O cluster {maior_soma['cluster']} possui o maior percentual de soma ({maior_soma['Percentual_Soma']}%), "
+            f"utilizando a mediana ({dados_frame['SOMA'].median()}), sendo que em sales possui uma mediana de "
+            f"{maior_soma['sales']}, sendo um dado {determinar_nivel(maior_soma['sales'])} e o mean_price de "
+            f"{maior_soma['mean_price']}, sendo um dado {determinar_nivel(maior_soma['mean_price'])}. "
+            "Portanto é a melhor escolha')
+    
+
     
 else:
     st.write("Nenhum cluster selecionado.")
@@ -148,6 +168,7 @@ if cluster_selecionado != 'Escolha uma opção':
             
                 st.write(f'Dos 100 items mais vendidos entre 2011 e 2015 do Cluster {cluster_selecionado}, da região {regiao_escolhida} e da store {store_selecionado} os items que mais se repetem:')
                 st.dataframe(top_10_rep)
+                
         else:
             st.write("Nenhuma loja selecionada.")
     else:
