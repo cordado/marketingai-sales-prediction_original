@@ -81,7 +81,7 @@ if cluster_selecionado != 'Escolha uma opção':
 
     st.dataframe(finais[['SOMA', 'Percentual_Soma', 'sales', 'Percentual_Sales', 'mean_price', 'Percentual_Means']])
 
-    maior_soma = dados_frame.loc[dados_frame['SOMA'].idxmax()]
+    maior_soma = final.loc[final['SOMA'].idxmax()]
 
 #     Determinar se o valor é alto/médio/baixo
     def determinar_nivel(valor):
@@ -93,7 +93,7 @@ if cluster_selecionado != 'Escolha uma opção':
             return "baixo"
 
     # Mensagem para o maior percentual de soma
-    mensagem = (f"O cluster {maior_soma['Cluster']} possui o maior percentual de soma")
+    mensagem = (f"O cluster {maior_soma['Cluster']} possui o maior percentual de soma ({maior_soma['Percentual_Soma']}%)")
 
     # Exibir a mensagem no Streamlit
     st.write(mensagem)
