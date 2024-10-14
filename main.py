@@ -85,12 +85,12 @@ if cluster_selecionado != 'Escolha uma opção':
 
 #     Determinar se o valor é alto/médio/baixo
     def determinar_nivel(valor):
-    if valor > dados_frame['SOMA'].median():
-        return "alto"
-    elif valor > dados_frame['SOMA'].quantile(0.25):
-        return "médio"
-    else:
-        return "baixo"
+        if valor > dados_frame['SOMA'].median():
+            return "alto"
+        elif valor > dados_frame['SOMA'].quantile(0.25):
+            return "médio"
+        else:
+            return "baixo"
 
     # Mensagem para o maior percentual de soma
     st.write(f'O cluster {maior_soma['cluster']} possui o maior percentual de soma ({maior_soma['Percentual_Soma']}%), "
