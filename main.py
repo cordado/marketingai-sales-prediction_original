@@ -5,7 +5,7 @@ import plotly.express as px
 from sklearn.preprocessing import LabelEncoder
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler 
 
 # Exibir os dados filtrados
 st.markdown("# **DASHBOARD DA EMPRESA XXXX**")
