@@ -113,8 +113,8 @@ if cluster_selecionado != 'Escolha uma opção':
                 previsao['ds'] = pd.to_datetime(previsao['ds'])
             
                 # Filtrar df_real até 2015-12-01 e previsao igual ou acima de 2016-01-01
-                df_real_filtered = df_real[df_real['ds'] <= '2015-12-01']
-                previsao_filtered = previsao[previsao['ds'] >= '2016-04-01']
+                df_real_filtered = df_real[df_real['ds'] <= '2016-04-01']
+                previsao_filtered = previsao[previsao['ds'] > '2016-04-01']
             
                 # Concatenar os DataFrames filtrados
                 df_merged = pd.concat([df_real_filtered, previsao_filtered[['ds', 'yhat']]], axis=0).reset_index(drop=True)
