@@ -15,7 +15,7 @@ dados_frame = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/merg
 # dados_frame = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/dados_boston_sem_outliers.csv')
 dados_frame['region'] = dados_frame['region'].replace({0: 'Boston', 1: 'New York', 2: 'Philadelphia'})
 # dados_frame['cluster'] = dados_frame['region'].replace({0: 'Boston', 1: 'São Paulo'})
-dados_frame['Grupo'] = dados_frame['region'].replace({0: 'Boston', 1: 'São Paulo'})
+# dados_frame['Grupo'] = dados_frame['region'].replace({0: 'Boston', 1: 'São Paulo'})
 
 # Sidebar para filtros
 st.sidebar.header('Escolher o cluster, region e store')
