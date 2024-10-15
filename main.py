@@ -230,10 +230,7 @@ if cluster_selecionado != 'Escolha uma opção':
                     plt.plot(df_prophet['ds'], df_prophet['y'], label='Valor Real', marker='o')
                     plt.plot(forecast['ds'], forecast['yhat'], label='Valor Predito', marker='x')
 
-                    
-                    fig, ax = plt.subplots(figsize=(10, 6))
-                    ax.plot(df_prophet['ds'], df_prophet['y'], label='Valor Real', marker='o')
-                    ax.plot(forecast['ds'], forecast['yhat'], label='Valor Predito', marker='x')
+        
                     
                     plt.title(f'Previsão do Cluster {cluster_selecionado}, da região {regiao_escolhida} e da store {store_selecionado}')
                     plt.xlabel('Data')
