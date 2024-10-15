@@ -181,6 +181,15 @@ if cluster_selecionado != 'Escolha uma opção':
                 st.markdown("---")
                 st.write(f'Dos 100 items mais vendidos entre 2015 e inicío de 2016 do Cluster {cluster_selecionado}, da região {regiao_escolhida} e da store {store_selecionado} os items que mais se repetem:')
                 st.dataframe(top_10_rep_2015_2016)
+
+                # top_10_rep_2015_2016  pegar o top 5
+                # verificar o nome do item e filtrar
+                # agrupar usando o dataset dados_filtrados_loja[['year_month', 'SOMA']]
+                # fazer a previsão com prophet  
+                # merge com dados agrupados anteriormente
+                # mostrar o resultado
+                # loop nos dez itens
+                
                 
         else:
             st.write("Nenhuma loja selecionada.")
