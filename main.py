@@ -193,15 +193,15 @@ if cluster_selecionado != 'Escolha uma opção':
                 # merge com dados agrupados anteriormente
                 # mostrar o resultado
                 # loop nos dez itens
+
                 
 
                 grouped_dataframes = []
 
                 # Loop pelas primeiras 5 linhas do dataset 'top_10_rep_2015_2016'
+
                 for i in range(5):
                     # Obter o 'item' da linha atual
-                
-
                     item = top_10_rep_2015_2016.iloc[i]['item']
                     
                     # Filtrar e agrupar o dataframe 'dados_filtrados_loja' pelo item selecionado
@@ -209,9 +209,27 @@ if cluster_selecionado != 'Escolha uma opção':
                     
                     # Adicionar o dataframe agrupado à lista
                     grouped_dataframes.append(grouped_df)
-                
-                # Fazer o merge de todos os dataframes agrupados em um único dataframe
-                merged_df2 = pd.concat(grouped_dataframes, ignore_index=True)
+                    
+                    # Preparar os dados para o Prophet
+                    df_prophet = grouped_df[['year_month', 'SOMA']].rename(columns={'year_month': 'ds', 'SOMA': 'y'})
+                    
+                    # Inicializar e ajustar o modelo Prophet
+                    m = Prophet(interval_width=0.95, daily_seasonality=False)
+                    m.fit(df_prophet)
+                    
+                    # Criar um dataframe para as previsões futuras
+                    future = m.make_future_dataframe(periods=12, freq='M')
+                    
+                    # Fazer previsões
+                    forecast = m.predict(future)
+                    
+                    # Visualizar as previsões
+                    fig = m.plot(forecast)
+                    plt.title(f'Previsão para o item: {item}')
+                    plt.xlabel('Data')
+                    plt.ylabel('SOMA')
+                    plt.show()
+
                 st.markdown("---")
                 st.dataframe(merged_df2)
             
