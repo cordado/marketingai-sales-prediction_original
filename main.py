@@ -205,7 +205,7 @@ if cluster_selecionado != 'Escolha uma opção':
                     item = top_10_rep_2015_2016.iloc[i]['item']
                     
                     # Filtrar e agrupar o dataframe 'dados_filtrados_loja' pelo item selecionado
-                    grouped_df = dados_filtrados_loja[dados_filtrados_loja['item'] == item].groupby(['item')['SOMA'].sum().reset_index()
+                    grouped_df = dados_filtrados_loja[dados_filtrados_loja['item'] == item].groupby('item')['SOMA'].sum().reset_index()
                     
                     # Adicionar o dataframe agrupado à lista
                     grouped_dataframes.append(grouped_df)
