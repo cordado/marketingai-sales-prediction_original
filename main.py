@@ -223,6 +223,31 @@ if cluster_selecionado != 'Escolha uma opção':
                     # Fazer previsões
                     forecast = m.predict(future)
                     
+                    # Plotar os resultados usando Streamlit
+                    fig, ax = plt.subplots(figsize=(10, 6))
+                    ax.plot(df_prophet['ds'], df_prophet['y'], label='Valor Real', marker='o')
+                    ax.plot(forecast['ds'], forecast['yhat'], label='Valor Predito', marker='x')
+                    
+                    # Adicionando título e rótulos
+                    ax.set_title(f'Previsão para o item: {item}')
+                    ax.set_xlabel('Data')
+                    ax.set_ylabel('SOMA')
+                    ax.legend()
+                    
+                    # Exibir o gráfico no Streamlit
+                    st.pyplot(fig)
+
+
+
+
+
+
+
+
+
+
+
+                    
                     # Visualizar as previsões
                     fig = m.plot(forecast)
                     plt.title(f'Previsão para o item: {item}')
