@@ -224,36 +224,26 @@ if cluster_selecionado != 'Escolha uma opção':
                     forecast = m.predict(future)
                     
                     # Plotar os resultados usando Streamlit
+                    fig2 = px.line(forecast, x='ds', y='yhat', title='Previsão com Prophet')
+
+                    plt.figure(figsize=(6, 3))
+                    plt.plot(df_prophet['ds'], df_prophet['y'], label='Valor Real', marker='o')
+                    plt.plot(forecast['ds'], forecast['yhat'], label='Valor Predito', marker='x')
+
+                    
                     fig, ax = plt.subplots(figsize=(10, 6))
                     ax.plot(df_prophet['ds'], df_prophet['y'], label='Valor Real', marker='o')
                     ax.plot(forecast['ds'], forecast['yhat'], label='Valor Predito', marker='x')
                     
-                    # Adicionando título e rótulos
-                    ax.set_title(f'Previsão para o item: {item}')
-                    ax.set_xlabel('Data')
-                    ax.set_ylabel('SOMA')
-                    ax.legend()
-                    
-                    # Exibir o gráfico no Streamlit
-                    st.pyplot(fig)
-
-
-
-
-
-
-
-
-
-
-
-                    
-                    # Visualizar as previsões
-                    fig = m.plot(forecast)
-                    plt.title(f'Previsão para o item: {item}')
+                    plt.title(f'Previsão do Cluster {cluster_selecionado}, da região {regiao_escolhida} e da store {store_selecionado}')
                     plt.xlabel('Data')
-                    plt.ylabel('SOMA')
-                    plt.show()
+                    plt.ylabel('Valores')
+                    plt.legend()
+                    st.pyplot(plt)
+
+
+
+
                 # Fazer o merge de todos os dataframes agrupados em um único dataframe
 
                 merged_df2 = pd.concat(grouped_dataframes, ignore_index=True)
