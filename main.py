@@ -158,8 +158,10 @@ if cluster_selecionado != 'Escolha uma opção':
                 # Assuming dados_filtrados_loja is your DataFrame
                 top_100_stores = dados_filtrados_loja[['year_month','item','store', 'sales', 'mean_price', 'SOMA']].nlargest(200, 'SOMA')
                 top_10_rep = top_100_stores[['item']].value_counts()
+                
                 top_10_stores = dados_filtrados_loja[['year_month','item','store', 'sales', 'mean_price', 'SOMA']].nlargest(10, 'SOMA') 
-                top_10_stores.set_index('year_month', inplace=True)
+                
+                #top_10_stores.set_index('year_month', inplace=True)
 
                 top_100_stores = dados_filtrados_loja[['year_month','item','store', 'sales', 'mean_price', 'SOMA']].nlargest(200, 'SOMA')
                 top_100_stores_2015_2016 = top_100_stores[top_100_stores['year_month'].str.startswith(('2015', '2016'))]
@@ -191,17 +193,16 @@ if cluster_selecionado != 'Escolha uma opção':
                 # merge com dados agrupados anteriormente
                 # mostrar o resultado
                 # loop nos dez itens
-                import pandas as pd
-
+                
 
                 grouped_dataframes = []
 
                 # Loop pelas primeiras 5 linhas do dataset 'top_10_rep_2015_2016'
                 for i in range(5):
                     # Obter o 'item' da linha atual
-                    top = top_10_rep_2015_2016.reset_index(drop=True)
+                
 
-                    item = top.iloc[i]['item']
+                    item = top_10_rep_2015_2016.iloc[i]['item']
                     
                     # Filtrar e agrupar o dataframe 'dados_filtrados_loja' pelo item selecionado
                     grouped_df = dados_filtrados_loja[dados_filtrados_loja['item'] == item].groupby(['year_month'])['SOMA'].sum().reset_index()
