@@ -229,6 +229,9 @@ if cluster_selecionado != 'Escolha uma opção':
                     plt.xlabel('Data')
                     plt.ylabel('SOMA')
                     plt.show()
+                # Fazer o merge de todos os dataframes agrupados em um único dataframe
+
+                merged_df2 = pd.concat(grouped_dataframes, ignore_index=True)
 
                 st.markdown("---")
                 st.dataframe(merged_df2)
