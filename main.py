@@ -183,12 +183,37 @@ if cluster_selecionado != 'Escolha uma opção':
                 st.dataframe(top_10_rep_2015_2016)
 
                 # top_10_rep_2015_2016  pegar o top 5
+
+                top_10_rep_2015_2016 
                 # verificar o nome do item e filtrar
                 # agrupar usando o dataset dados_filtrados_loja[['year_month', 'SOMA']]
                 # fazer a previsão com prophet  
                 # merge com dados agrupados anteriormente
                 # mostrar o resultado
                 # loop nos dez itens
+                import pandas as pd
+
+
+                grouped_dataframes = []
+
+                # Loop pelas primeiras 5 linhas do dataset 'top_10_rep_2015_2016'
+                for i in range(5):
+                    # Obter o 'item' da linha atual
+                    item = top_10_rep_2015_2016.iloc[i]['item']
+                    
+                    # Filtrar e agrupar o dataframe 'dados_filtrados_loja' pelo item selecionado
+                    grouped_df = dados_filtrados_loja[dados_filtrados_loja['item'] == item].groupby(['year_month'])['SOMA'].sum().reset_index()
+                    
+                    # Adicionar o dataframe agrupado à lista
+                    grouped_dataframes.append(grouped_df)
+                
+                # Fazer o merge de todos os dataframes agrupados em um único dataframe
+                merged_df2 = pd.concat(grouped_dataframes, ignore_index=True)
+                st.dataframe(merged_df2)
+            
+                
+                
+
                 
                 
         else:
