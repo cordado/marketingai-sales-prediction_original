@@ -186,7 +186,7 @@ if cluster_selecionado != 'Escolha uma opção':
 
                 # top_10_rep_2015_2016  pegar o top 5
 
-                top_10_rep_2015_2016 
+    
                 # verificar o nome do item e filtrar
                 # agrupar usando o dataset dados_filtrados_loja[['year_month', 'SOMA']]
                 # fazer a previsão com prophet  
