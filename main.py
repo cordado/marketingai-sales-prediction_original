@@ -199,7 +199,9 @@ if cluster_selecionado != 'Escolha uma opção':
                 # Loop pelas primeiras 5 linhas do dataset 'top_10_rep_2015_2016'
                 for i in range(5):
                     # Obter o 'item' da linha atual
-                    item = top_10_rep_2015_2016.iloc[i]['item']
+                    top = top_10_rep_2015_2016.set_index('item', inplace=True)
+
+                    item = top.iloc[i]['item']
                     
                     # Filtrar e agrupar o dataframe 'dados_filtrados_loja' pelo item selecionado
                     grouped_df = dados_filtrados_loja[dados_filtrados_loja['item'] == item].groupby(['year_month'])['SOMA'].sum().reset_index()
