@@ -200,6 +200,7 @@ if cluster_selecionado != 'Escolha uma opção':
 
                 # Loop pelas primeiras 5 linhas do dataset 'top_10_rep_2015_2016'
 
+                # Loop pelas primeiras 5 linhas do dataset 'top_10_rep_2015_2016'
                 for i in range(5):
                     # Obter o 'item' da linha atual
                     item = top_10_rep_2015_2016.iloc[i]['item']
@@ -212,7 +213,8 @@ if cluster_selecionado != 'Escolha uma opção':
                     
                     # Preparar os dados para o Prophet
                     df_prophet = grouped_df[['year_month', 'SOMA']].rename(columns={'year_month': 'ds', 'SOMA': 'y'})
-
+                    
+                    # Converter a coluna 'ds' para datetime
                     df_prophet['ds'] = pd.to_datetime(df_prophet['ds'])
                     
                     # Inicializar e ajustar o modelo Prophet
@@ -226,19 +228,18 @@ if cluster_selecionado != 'Escolha uma opção':
                     forecast = m.predict(future)
                     
                     # Plotar os resultados usando Streamlit
-                    fig2 = px.line(forecast, x='ds', y='yhat', title='Previsão com Prophet')
-
-                    plt.figure(figsize=(6, 3))
-                    plt.plot(df_prophet['ds'], df_prophet['y'], label='Valor Real', marker='o')
-                    plt.plot(forecast['ds'], forecast['yhat'], label='Valor Predito', marker='x')
-
-        
+                    fig, ax = plt.subplots(figsize=(10, 6))
+                    ax.plot(df_prophet['ds'], df_prophet['y'], label='Valor Real', marker='o')
+                    ax.plot(forecast['ds'], forecast['yhat'], label='Valor Predito', marker='x')
                     
-                    plt.title(f'Previsão do Cluster {cluster_selecionado}, da região {regiao_escolhida} e da store {store_selecionado}')
-                    plt.xlabel('Data')
-                    plt.ylabel('Valores')
-                    plt.legend()
-                    st.pyplot(plt)
+                    # Adicionando título e rótulos
+                    ax.set_title(f'Previsão para o item: {item}')
+                    ax.set_xlabel('Data')
+                    ax.set_ylabel('SOMA')
+                    ax.legend()
+                    
+                    # Exibir o gráfico no Streamlit
+                    st.pyplot(fig)
 
 
 
