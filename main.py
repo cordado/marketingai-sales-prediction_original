@@ -212,6 +212,8 @@ if cluster_selecionado != 'Escolha uma opção':
                     
                     # Preparar os dados para o Prophet
                     df_prophet = grouped_df[['year_month', 'SOMA']].rename(columns={'year_month': 'ds', 'SOMA': 'y'})
+
+                    df_prophet['ds'] = pd.to_datetime(df_prophet['ds'])
                     
                     # Inicializar e ajustar o modelo Prophet
                     m = Prophet(interval_width=0.95, daily_seasonality=False)
