@@ -222,7 +222,7 @@ if cluster_selecionado != 'Escolha uma opção':
                     m.fit(df_prophet)
                     
                     # Criar um dataframe para as previsões futuras
-                    future = m.make_future_dataframe(periods=12, freq='M')
+                    future = m.make_future_dataframe(periods=12, freq='MS')
                     
                     # Fazer previsões
                     forecast = m.predict(future)
