@@ -167,6 +167,7 @@ if cluster_selecionado != 'Escolha uma opção':
                 top_100_stores_2015_2016 = top_100_stores[top_100_stores['year_month'].str.startswith(('2015', '2016'))]
                 top_10_rep_2015_2016 = top_100_stores_2015_2016[['item']].value_counts().reset_index()
                 top_100_stores_2015_2016.value_counts().head(5)
+                st.dataframe(top_100_stores_2015_2016)
                  
                 
                 # Display the DataFrame
