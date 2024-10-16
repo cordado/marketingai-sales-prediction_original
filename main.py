@@ -142,8 +142,8 @@ if cluster_selecionado != 'Escolha uma opção':
             
                  # Plotar os valores reais vs preditos usando Matplotlib e Streamlit
                 plt.figure(figsize=(6, 3))
-                plt.plot(df_real_filtered['ds'], df_real_filtered['y'], label='Valor Real', marker='o')
-                plt.plot(previsao_filtered['ds'], previsao_filtered['yhat'], label='Valor Predito', marker='x')
+                plt.plot(df_real_filtered['ds'], df_real_filtered['y'], label='Valor Real')
+                plt.plot(previsao_filtered['ds'], previsao_filtered['yhat'], label='Valor Predito')
                 
                 # Adicionando título e rótulos
                 plt.title(f'Previsão do Cluster {cluster_selecionado}, da região {regiao_escolhida} e da store {store_selecionado}')
