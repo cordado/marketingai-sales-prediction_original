@@ -32,15 +32,15 @@ else:
 # Exibir os dados filtrados, se houver
 if cluster_selecionado != 'Escolha uma opção':
     # Painel Geral dos Clusters
-    final = dados_frame.groupby(['Cluster'])[['SOMA']].median().reset_index()
+    final = dados_frame.groupby(['Cluster'])[['SOMA']].mean().reset_index()
     final['SOMA_TOTAL'] = final['SOMA'].sum()
     final['Percentual_Soma'] = final['SOMA'] / final['SOMA_TOTAL']
 
-    final2 = dados_frame.groupby(['Cluster'])[['sales']].median().reset_index()
+    final2 = dados_frame.groupby(['Cluster'])[['sales']].mean().reset_index()
     final2['sales_TOTAL'] = final2['sales'].sum()
     final2['Percentual_Sales'] = final2['sales'] / final2['sales_TOTAL']
 
-    final3 = dados_frame.groupby(['Cluster'])[['mean_price']].median().reset_index()
+    final3 = dados_frame.groupby(['Cluster'])[['mean_price']].mean().reset_index()
     final3['mean_price_TOTAL'] = final3['mean_price'].sum()
     final3['Percentual_Means'] = final3['mean_price'] / final3['mean_price_TOTAL']
 
