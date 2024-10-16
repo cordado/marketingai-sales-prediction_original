@@ -171,8 +171,8 @@ if cluster_selecionado != 'Escolha uma opção':
                 top_100_stores = dados_filtrados_loja[['year_month','item','store', 'sales', 'mean_price', 'SOMA']].nlargest(200, 'SOMA')
                 top_100_stores_2015_2016 = top_100_stores[top_100_stores['year_month'].str.startswith(('2015', '2016'))]
                 top_10_rep_2015_2016 = top_100_stores_2015_2016[['item']].value_counts().reset_index()
-                top_5_2015-16 = top_100_stores_2015_2016.value_counts().head(5)
-                st.dataframe(top_5_2015)
+                top_5_2015_16 = top_100_stores_2015_2016.value_counts().head(5)
+                st.dataframe(top_5_2015_16)
                  
                 
                 # Display the DataFrame
