@@ -188,6 +188,7 @@ if cluster_selecionado != 'Escolha uma opção':
                 st.write(f'Dos 100 items mais vendidos entre 2015 e inicío de 2016 do Cluster {cluster_selecionado}, da região {regiao_escolhida} e da store {store_selecionado} os items que mais se repetem:')
                 fig3, ax3 = plt.subplots()
                 top_10_rep_2015_2016_5 = top_10_rep_2015_2016.head(5)
+                top_10_rep_2015_2016_5.reset_index(drop=True, inplace=True)
                 top_10_rep_2015_2016_5.plot(kind='barh', ax=ax3)  # Use "barh" para gráfico de barras horizontal
                 for p in ax3.patches:
                     ax3.annotate(str(p.get_width()), (p.get_width(), p.get_y() + p.get_height() / 2.), ha='center', va='center', xytext=(10, 0), textcoords='offset points')
