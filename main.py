@@ -172,7 +172,7 @@ if cluster_selecionado != 'Escolha uma opção':
                 top_100_stores_2015_2016 = top_100_stores[top_100_stores['year_month'].str.startswith(('2015', '2016'))]
                 top_10_rep_2015_2016 = top_100_stores_2015_2016[['item']].value_counts().reset_index()
                 top_5_2015_16 = top_100_stores_2015_2016.value_counts().head(5)
-                st.dataframe(top_5_2015_16)
+                
                  
                 
                 # Display the DataFrame
@@ -199,6 +199,8 @@ if cluster_selecionado != 'Escolha uma opção':
                 for p in ax3.patches:
                     ax3.annotate(str(p.get_width()), (p.get_width(), p.get_y() + p.get_height() / 2.), ha='center', va='center', xytext=(10, 0), textcoords='offset points')
                 st.pyplot(fig3)
+
+                st.dataframe(top_10_rep_2015_2016_5)
 
                 # top_10_rep_2015_2016  pegar o top 5
 
