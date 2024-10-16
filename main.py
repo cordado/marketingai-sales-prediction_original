@@ -178,7 +178,10 @@ if cluster_selecionado != 'Escolha uma opção':
                 st.markdown("---")
             
                 st.write(f'Dos 100 items mais vendidos entre 2011 e inicío de 2016 do Cluster {cluster_selecionado}, da região {regiao_escolhida} e da store {store_selecionado} os items que mais se repetem:')
-                st.dataframe(top_10_rep)
+                # st.dataframe(top_10_rep)
+                fig2, ax2 = plt.subplots()
+                top_10_rep.plot(kind='bar', ax=ax2)
+                st.pyplot(fig2)
 
                 st.markdown("---")
                 st.write(f'Dos 100 items mais vendidos entre 2015 e inicío de 2016 do Cluster {cluster_selecionado}, da região {regiao_escolhida} e da store {store_selecionado} os items que mais se repetem:')
