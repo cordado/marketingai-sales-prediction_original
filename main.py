@@ -40,7 +40,7 @@ if cluster_selecionado != 'Escolha uma opção':
     final2['sales_TOTAL'] = final2['sales'].sum()
     final2['Percentual_Sales'] = final2['sales'] / final2['sales_TOTAL']
 
-    final3 = dados_frame.groupby(['Cluster'])[['mean_price']].max().reset_index()
+    final3 = dados_frame.groupby(['Cluster'])[['mean_price']].mean().reset_index()
     final3['mean_price_TOTAL'] = final3['mean_price'].sum()
     final3['Percentual_Means'] = final3['mean_price'] / final3['mean_price_TOTAL']
 
