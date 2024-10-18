@@ -26,8 +26,6 @@ if cluster_selecionado == 'Escolha uma opção':
 else:
     dados_frame_cluster = dados_frame[dados_frame['Cluster'] == int(cluster_selecionado)]
 
-# Exibir os dados filtrados, se houver
-cluster_selecionado != 'Escolha uma opção':
 
 # Painel Geral dos Clusters
 final = dados_frame.groupby(['Cluster'])[['SOMA']].mean().reset_index()
