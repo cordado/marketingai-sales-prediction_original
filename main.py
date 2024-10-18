@@ -12,10 +12,7 @@ st.markdown("# **DASHBOARD DA EMPRESA XXXX**")
 
 # Carregar os dados
 dados_frame = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/merge_df.csv')
-# dados_frame = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/dados_boston_sem_outliers.csv')
 dados_frame['region'] = dados_frame['region'].replace({0: 'Boston', 1: 'New York', 2: 'Philadelphia'})
-# dados_frame['cluster'] = dados_frame['region'].replace({0: 'Boston', 1: 'São Paulo'})
-# dados_frame['Grupo'] = dados_frame['region'].replace({0: 'Boston', 1: 'São Paulo'})
 
 # Sidebar para filtros
 st.sidebar.header('Escolher o cluster, region e store')
@@ -30,80 +27,57 @@ else:
     dados_frame_cluster = dados_frame[dados_frame['Cluster'] == int(cluster_selecionado)]
 
 # Exibir os dados filtrados, se houver
-if cluster_selecionado != 'Escolha uma opção':
-    # Painel Geral dos Clusters
-    final = dados_frame.groupby(['Cluster'])[['SOMA']].mean().reset_index()
-    final['SOMA_TOTAL'] = final['SOMA'].sum()
-    final['Percentual_Soma'] = final['SOMA'] / final['SOMA_TOTAL']
+cluster_selecionado != 'Escolha uma opção':
 
-    final2 = dados_frame.groupby(['Cluster'])[['sales']].mean().reset_index()
-    final2['sales_TOTAL'] = final2['sales'].sum()
-    final2['Percentual_Sales'] = final2['sales'] / final2['sales_TOTAL']
+# Painel Geral dos Clusters
+final = dados_frame.groupby(['Cluster'])[['SOMA']].mean().reset_index()
+final['SOMA_TOTAL'] = final['SOMA'].sum()
+final['Percentual_Soma'] = final['SOMA'] / final['SOMA_TOTAL']
 
-    final3 = dados_frame.groupby(['Cluster'])[['mean_price']].mean().reset_index()
-    final3['mean_price_TOTAL'] = final3['mean_price'].sum()
-    final3['Percentual_Means'] = final3['mean_price'] / final3['mean_price_TOTAL']
+final2 = dados_frame.groupby(['Cluster'])[['sales']].mean().reset_index()
+final2['sales_TOTAL'] = final2['sales'].sum()
+final2['Percentual_Sales'] = final2['sales'] / final2['sales_TOTAL']
 
-    finais_analise = pd.merge(final, final2, on='Cluster', how='outer')
-    finais_analise = pd.merge(finais_analise, final3, on='Cluster', how='outer')
+final3 = dados_frame.groupby(['Cluster'])[['mean_price']].mean().reset_index()
+final3['mean_price_TOTAL'] = final3['mean_price'].sum()
+final3['Percentual_Means'] = final3['mean_price'] / final3['mean_price_TOTAL']
+
+finais_analise = pd.merge(final, final2, on='Cluster', how='outer')
+finais_analise = pd.merge(finais_analise, final3, on='Cluster', how='outer')
     
     
-    soma_final = pd.DataFrame({
-    'Cluster': ['Total'],
-    'SOMA': [final['SOMA'].sum()],
-    'SOMA_TOTAL': [final['SOMA'].sum()],
-    'Percentual_Soma': ['100.00%'],
-    'sales': [final2['sales'].sum()],
-    'sales_TOTAL': [final2['sales'].sum()],
-    'Percentual_Sales': ['100.00%'],
-    'mean_price': [final3['mean_price'].sum()],
-    'mean_price_TOTAL': [final3['mean_price'].sum()],
-    'Percentual_Means': ['100.00%']
-})
-    soma_final['SOMA'] = soma_final['SOMA'].apply(lambda x: f'${x:,.2f}')
-    soma_final['sales'] = soma_final['sales'].apply(lambda x: f'{int(x):,}'.replace(',', '.'))
-    soma_final['mean_price'] = soma_final['mean_price'].apply(lambda x: f'${x:,.2f}')
+soma_final = pd.DataFrame({'Cluster': ['Total'],'SOMA': [final['SOMA'].sum()],'SOMA_TOTAL': [final['SOMA'].sum()],'Percentual_Soma': ['100.00%'],'sales': [final2['sales'].sum()],'sales_TOTAL': [final2['sales'].sum()],'Percentual_Sales': ['100.00%'],'mean_price': [final3['mean_price'].sum()],
+'mean_price_TOTAL': [final3['mean_price'].sum()],'Percentual_Means': ['100.00%']})
 
-    final['SOMA'] = final['SOMA'].apply(lambda x: f'${x:,.2f}')
-    final['SOMA_TOTAL'] = final['SOMA_TOTAL'].apply(lambda x: f'${x:,.2f}')
-    final['Percentual_Soma'] = final['Percentual_Soma'].apply(lambda x: f'{x * 100:.2f}%')
-    final2['sales'] = final2['sales'].apply(lambda x: f'{int(x):,}'.replace(',', '.'))
-    final2['sales_TOTAL'] = final2['sales_TOTAL'].apply(lambda x: f'{int(x):,}'.replace(',', '.'))
-    final2['Percentual_Sales'] = final2['Percentual_Sales'].apply(lambda x: f'{x * 100:.2f}%')
-    final3['mean_price'] = final3['mean_price'].apply(lambda x: f'${x:,.2f}')
-    final3['mean_price_TOTAL'] = final3['mean_price_TOTAL'].apply(lambda x: f'${x:,.2f}')
-    final3['Percentual_Means'] = final3['Percentual_Means'].apply(lambda x: f'{x * 100:.2f}%')
+soma_final['SOMA'] = soma_final['SOMA'].apply(lambda x: f'${x:,.2f}')
+soma_final['sales'] = soma_final['sales'].apply(lambda x: f'{int(x):,}'.replace(',', '.'))
+soma_final['mean_price'] = soma_final['mean_price'].apply(lambda x: f'${x:,.2f}')
 
-    finais = pd.merge(final, final2, on='Cluster', how='outer')
-    finais = pd.merge(finais, final3, on='Cluster', how='outer')
+final['SOMA'] = final['SOMA'].apply(lambda x: f'${x:,.2f}')
+final['SOMA_TOTAL'] = final['SOMA_TOTAL'].apply(lambda x: f'${x:,.2f}')
+final['Percentual_Soma'] = final['Percentual_Soma'].apply(lambda x: f'{x * 100:.2f}%')
+final2['sales'] = final2['sales'].apply(lambda x: f'{int(x):,}'.replace(',', '.'))
+final2['sales_TOTAL'] = final2['sales_TOTAL'].apply(lambda x: f'{int(x):,}'.replace(',', '.'))
+final2['Percentual_Sales'] = final2['Percentual_Sales'].apply(lambda x: f'{x * 100:.2f}%')
+final3['mean_price'] = final3['mean_price'].apply(lambda x: f'${x:,.2f}')
+final3['mean_price_TOTAL'] = final3['mean_price_TOTAL'].apply(lambda x: f'${x:,.2f}')
+final3['Percentual_Means'] = final3['Percentual_Means'].apply(lambda x: f'{x * 100:.2f}%')
+
+finais = pd.merge(final, final2, on='Cluster', how='outer')
+finais = pd.merge(finais, final3, on='Cluster', how='outer')
     
-    # Adicionar a linha de soma ao DataFrame finais
-    finais = pd.concat([finais, soma_final], ignore_index=True)
+# Adicionar a linha de soma ao DataFrame finais
+finais = pd.concat([finais, soma_final], ignore_index=True)
     
 
-    st.dataframe(finais[['SOMA', 'Percentual_Soma', 'sales', 'Percentual_Sales', 'mean_price', 'Percentual_Means']])
+st.dataframe(finais[['SOMA', 'Percentual_Soma', 'sales', 'Percentual_Sales', 'mean_price', 'Percentual_Means']])
 
-    maior_soma = finais_analise.loc[finais_analise['SOMA'].idxmax()]
+# Mensagem para o maior percentual de soma
+mensagem = (f"O cluster {maior_soma['Cluster']} possui uma mediana da SOMA com representação de ({maior_soma['Percentual_Soma']:.2f}%) sobre os outros Clusters.")
 
-#     Determinar se o valor é alto/médio/baixo
-    def determinar_nivel(valor):
-        if valor > dados_frame['SOMA'].median():
-            return "alto"
-        elif valor > dados_frame['SOMA'].quantile(0.25):
-            return "médio"
-        else:
-            return "baixo"
-
-    # Mensagem para o maior percentual de soma
-    mensagem = (f"O cluster {maior_soma['Cluster']} possui uma mediana da SOMA com representação de ({maior_soma['Percentual_Soma']:.2f}%) sobre os outros Clusters.")
-
-    # Exibir a mensagem no Streamlit
-    st.write(mensagem)
+# Exibir a mensagem no Streamlit
+st.write(mensagem)
     
-
-    
-else:
-    st.write("Nenhum cluster selecionado.")
 
 # Seleção da região (após selecionar o cluster)
 if cluster_selecionado != 'Escolha uma opção':
