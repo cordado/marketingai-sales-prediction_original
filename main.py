@@ -70,6 +70,10 @@ finais = pd.concat([finais, soma_final], ignore_index=True)
 
 st.dataframe(finais[['SOMA', 'Percentual_Soma', 'sales', 'Percentual_Sales', 'mean_price', 'Percentual_Means']])
 
+
+maior_soma = finais_analise.loc[finais_analise['SOMA'].idxmax()]
+
+       
 # Mensagem para o maior percentual de soma
 mensagem = (f"O cluster {maior_soma['Cluster']} possui uma mediana da SOMA com representação de ({maior_soma['Percentual_Soma']:.2f}%) sobre os outros Clusters.")
 
