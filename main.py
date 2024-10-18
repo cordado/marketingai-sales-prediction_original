@@ -254,7 +254,7 @@ if cluster_selecionado != 'Escolha uma opção':
     else:
         st.write("Nenhuma região selecionada.")
 else:
-    st.write("Por favor, selecione uma loja para executar a previsão.")
+    st.write("Por favor, selecione um CLUSTER para executar a previsão.")
 
 
     
