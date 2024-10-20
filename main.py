@@ -6,12 +6,46 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler 
+import joblib
+import requests
+
+
 
 # Exibir os dados filtrados
 st.markdown("# **DASHBOARD DA EMPRESA XXXX**")
 
+#TESTE CARREGAR ARQUIVO
+url = 'https://github.com/cordado/teste/raw/main/kmeans_treinado.pkl'
+
+kmeans_TREINADO = joblib.load('kmeans_treinado.pkl')
+response = requests.get(url)
+open('kmeans_treinado.pkl', 'wb').write(response.content)
+kmeans_TREINADO = joblib.load('kmeans_treinado.pkl')
+
+dados_frame = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/base_mensal.csv')
+
+dados_frame['year_month'] = pd.to_datetime(dados_frame['year_month'])
+dados_frame['region'] = label_encoder.fit_transform(dados_frame['region'])
+dados_frame['SOMA'] = dados_frame['sales'] * dados_frame['mean_price']
+dados_frame = dados_frame[dados_frame['year_month'] != '2011-01']
+dados_frame = dados_frame[dados_frame['sales'] != 0]
+dados_frame = dados_frame[~(dados_frame['mean_price'].isna() & (dados_frame['sales'] > 0))]
+
+scaler = StandardScaler()
+dados_frame = scaler.fit_transform(dados_frame[['sales', 'mean_price', 'region']])
+pca = PCA(n_components=2) 
+componentes_principais = pca.fit_transform(dados_frame)
+df = pd.DataFrame(componentes_principais)
+dados_frame['Grupo'] = kmeans_TREINADO.predict(df)
+
+
+
+
+
+
 # Carregar os dados
-dados_frame = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/merge_df.csv')
+dados_frame_completo_carregar_labels = dados_frame
+# dados_frame = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/merge_df.csv')
 dados_frame['region'] = dados_frame['region'].replace({0: 'Boston', 1: 'New York', 2: 'Philadelphia'})
 
 # Sidebar para filtros
