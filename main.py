@@ -24,6 +24,7 @@ kmeans_TREINADO = joblib.load('kmeans_treinado.pkl')
 
 dados_frame = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/base_mensal.csv')
 
+label_encoder = LabelEncoder()
 dados_frame['year_month'] = pd.to_datetime(dados_frame['year_month'])
 dados_frame['region'] = label_encoder.fit_transform(dados_frame['region'])
 dados_frame['SOMA'] = dados_frame['sales'] * dados_frame['mean_price']
