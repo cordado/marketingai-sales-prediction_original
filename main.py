@@ -45,7 +45,7 @@ dados_frame2 = scaler.fit_transform(dados_frame2[['sales', 'mean_price', 'region
 pca = PCA(n_components=2) 
 componentes_principais = pca.fit_transform(dados_frame)
 df = pd.DataFrame(componentes_principais)
-dados_frame['Grupo'] = kmeans_TREINADO.predict(df)
+dados_frame['Cluster'] = kmeans_TREINADO.predict(df)
 
 
 
