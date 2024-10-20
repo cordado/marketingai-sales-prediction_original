@@ -23,6 +23,7 @@ open('kmeans_treinado.pkl', 'wb').write(response.content)
 kmeans_TREINADO = joblib.load('kmeans_treinado.pkl')
 
 dados_frame = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/base_mensal.csv')
+dados_frame2 = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/base_mensal.csv')
 
 label_encoder = LabelEncoder()
 dados_frame['year_month'] = pd.to_datetime(dados_frame['year_month'])
@@ -32,8 +33,15 @@ dados_frame = dados_frame[dados_frame['year_month'] != '2011-01']
 dados_frame = dados_frame[dados_frame['sales'] != 0]
 dados_frame = dados_frame[~(dados_frame['mean_price'].isna() & (dados_frame['sales'] > 0))]
 
+dados_frame2['year_month'] = pd.to_datetime(dados_frame2['year_month'])
+dados_frame2['region'] = label_encoder.fit_transform(dados_frame2['region'])
+dados_frame2['SOMA'] = dados_frame2['sales'] * dados_frame2['mean_price']
+dados_frame2 = dados_frame2[dados_frame2['year_month'] != '2011-01']
+dados_frame2 = dados_frame2[dados_frame2['sales'] != 0]
+dados_frame2 = dados_frame2[~(dados_frame2['mean_price'].isna() & (dados_frame2['sales'] > 0))]
+
 scaler = StandardScaler()
-dados_frame = scaler.fit_transform(dados_frame[['sales', 'mean_price', 'region']])
+dados_frame2 = scaler.fit_transform(dados_frame2[['sales', 'mean_price', 'region']])
 pca = PCA(n_components=2) 
 componentes_principais = pca.fit_transform(dados_frame)
 df = pd.DataFrame(componentes_principais)
