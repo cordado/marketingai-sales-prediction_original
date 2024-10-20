@@ -6,3 +6,4 @@ seaborn
 joblib
 Prophet
 plotly_express
+requests
