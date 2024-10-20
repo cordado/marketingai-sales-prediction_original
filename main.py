@@ -14,6 +14,15 @@ from sklearn.decomposition import PCA
 # Exibir os dados filtrados
 st.markdown("# **DASHBOARD DA EMPRESA XXXX**")
 
+uploaded_file = st.file_uploader("Escolha um arquivo CSV", type="csv", type="csv")
+
+if uploaded_file is not None:
+    dados_frame, dados_frame2 = pd.read_csv(uploaded_file)
+
+else:
+    st.write("Por favor, carregue um arquivo CSV.")
+
+
 #TESTE CARREGAR ARQUIVO
 url = 'https://github.com/cordado/teste/raw/main/kmeans_treinado.pkl'
 
@@ -22,8 +31,8 @@ response = requests.get(url)
 open('kmeans_treinado.pkl', 'wb').write(response.content)
 kmeans_TREINADO = joblib.load('kmeans_treinado.pkl')
 
-dados_frame = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/base_mensal.csv')
-dados_frame2 = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/base_mensal.csv')
+# dados_frame = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/base_mensal.csv')
+# dados_frame2 = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/base_mensal.csv')
 
 label_encoder = LabelEncoder()
 dados_frame['year_month'] = pd.to_datetime(dados_frame['year_month'])
