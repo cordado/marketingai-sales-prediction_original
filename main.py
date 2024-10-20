@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler 
 import joblib
 import requests
-
+from sklearn.decomposition import PCA
 
 
 # Exibir os dados filtrados
