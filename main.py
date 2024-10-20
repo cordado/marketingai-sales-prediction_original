@@ -17,8 +17,8 @@ st.markdown("# **DASHBOARD DA EMPRESA XXXX**")
 uploaded_file = st.file_uploader("Escolha um arquivo CSV", type="csv")
 
 if uploaded_file is not None:
-    dados_frame, dados_frame2 = pd.read_csv(uploaded_file)
-
+    dados_frame = pd.read_csv(uploaded_file)
+    dados_frame2 = dados_frame
 else:
     st.write("Por favor, carregue um arquivo CSV.")
 
