@@ -12,7 +12,7 @@ from sklearn.decomposition import PCA
 
 
 # Exibir os dados filtrados
-st.markdown("# **DASHBOARD DA EMPRESA XXXX**")
+st.markdown("# **Dashboad da Empresa MarketingAI**")
 
 uploaded_file = st.file_uploader("Escolha um arquivo CSV", type="csv")
 
