@@ -14,7 +14,7 @@ from sklearn.decomposition import PCA
 # Exibir os dados filtrados
 st.markdown("# **DASHBOARD DA EMPRESA XXXX**")
 
-uploaded_file = st.file_uploader("Escolha um arquivo CSV", type="csv", type="csv")
+uploaded_file = st.file_uploader("Escolha um arquivo CSV", type="csv")
 
 if uploaded_file is not None:
     dados_frame, dados_frame2 = pd.read_csv(uploaded_file)
