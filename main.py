@@ -43,7 +43,7 @@ dados_frame2 = dados_frame2[~(dados_frame2['mean_price'].isna() & (dados_frame2[
 scaler = StandardScaler()
 dados_frame2 = scaler.fit_transform(dados_frame2[['sales', 'mean_price', 'region']])
 pca = PCA(n_components=2) 
-componentes_principais = pca.fit_transform(dados_frame)
+componentes_principais = pca.fit_transform(dados_frame2)
 df = pd.DataFrame(componentes_principais)
 dados_frame['Cluster'] = kmeans_TREINADO.predict(df)
 
