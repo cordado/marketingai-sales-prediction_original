@@ -141,7 +141,7 @@ st.write(mensagem1)
 st.write(mensagem2)
 st.write(mensagem3)
 
-st.dataframe(finais[['SOMA', 'Percentual_Soma', 'sales', 'Percentual_Sales', 'mean_price', 'Percentual_Means']])
+st.dataframe(finais[['Cluster', 'SOMA', 'Percentual_Soma', 'sales', 'Percentual_Sales', 'mean_price', 'Percentual_Means']])
     
 
 # Seleção da região (após selecionar o cluster)
