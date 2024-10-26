@@ -132,9 +132,9 @@ maior_soma = finais_analise.loc[finais_analise['SOMA'].idxmax()]
 maior_sales = finais_analise.loc[finais_analise['sales'].idxmax()]
 maior_mean_price = finais_analise.loc[finais_analise['mean_price'].idxmax()]
 
-mensagem1 = (f"O cluster {maior_soma['Cluster']} possui uma média da SOMA com representação de ({maior_soma['Percentual_Soma']:.2f}%) sobre os outros Clusters.")
-mensagem2 = (f"O cluster {maior_sales['Cluster']} possui uma média da SOMA com representação de ({maior_sales['Percentual_Soma']:.2f}%) sobre os outros Clusters.")
-mensagem3 = (f"O cluster {maior_mean_price['Cluster']} possui uma média da SOMA com representação de ({maior_mean_price['Percentual_Soma']:.2f}%) sobre os outros Clusters.")
+mensagem1 = (f"O cluster {maior_soma['Cluster']} possui a maior média da SOMA com representação de ({maior_soma['Percentual_Soma']:* 100:.2f}%) sobre os outros Clusters.")
+mensagem2 = (f"O cluster {maior_sales['Cluster']} possui a maior da SALES com representação de ({maior_sales['Percentual_Sales']:.2f}%) sobre os outros Clusters.")
+mensagem3 = (f"O cluster {maior_mean_price['Cluster']} possui a maior da MEAN_PRICE com representação de ({maior_mean_price['Percentual_Means']:.2f}%) sobre os outros Clusters.")
 
 # Exibir a mensagem no Streamlit
 st.write(mensagem1)
