@@ -305,7 +305,7 @@ if cluster_selecionado != 'Escolha uma opção':
                 merged_df2 = pd.concat(grouped_dataframes, ignore_index=True)
 
                 st.markdown("---")
-                st.markdown("# *FIM DA ANÁLISE*")
+                st.markdown("## *Fim da Análise*")
                 
                 
 
