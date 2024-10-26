@@ -17,7 +17,7 @@ st.markdown("# **Dashboard da Empresa MarketingAI**")
 # SUBIR ARQUIVO ATÉ 200 MEGAS
 
 uploaded_file = st.file_uploader("Escolha um arquivo CSV", type="csv")
-
+dados_frame = []
 if uploaded_file is not None:
     dados_frame = pd.read_csv(uploaded_file)
     dados_frame2 = dados_frame
