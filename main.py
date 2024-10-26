@@ -12,7 +12,7 @@ from sklearn.decomposition import PCA
 
 
 # TELA DE APRESENTAÇÃO
-st.markdown("# **Dashboad da Empresa MarketingAI**")
+st.markdown("# **Dashboard da Empresa MarketingAI**")
 
 # SUBIR ARQUIVO ATÉ 200 MEGAS
 
