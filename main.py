@@ -11,8 +11,10 @@ import requests
 from sklearn.decomposition import PCA
 
 
-# Exibir os dados filtrados
+# TELA DE APRESENTAÇÃO
 st.markdown("# **Dashboad da Empresa MarketingAI**")
+
+# SUBIR ARQUIVO ATÉ 200 MEGAS
 
 uploaded_file = st.file_uploader("Escolha um arquivo CSV", type="csv")
 
@@ -23,7 +25,8 @@ else:
     st.write("Por favor, carregue um arquivo CSV.")
 
 
-#TESTE CARREGAR ARQUIVO
+# Carregar o algoritimo Kmeans já treinado
+
 url = 'https://github.com/cordado/teste/raw/main/kmeans_treinado.pkl'
 
 kmeans_TREINADO = joblib.load('kmeans_treinado.pkl')
@@ -31,8 +34,7 @@ response = requests.get(url)
 open('kmeans_treinado.pkl', 'wb').write(response.content)
 kmeans_TREINADO = joblib.load('kmeans_treinado.pkl')
 
-# dados_frame = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/base_mensal.csv')
-# dados_frame2 = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/base_mensal.csv')
+# Utilizar o LabelEncoder para trazer as mesmas configurações que utilizei para treinar o algoritimo
 
 label_encoder = LabelEncoder()
 dados_frame['year_month'] = pd.to_datetime(dados_frame['year_month'])
@@ -49,6 +51,8 @@ dados_frame2 = dados_frame2[dados_frame2['year_month'] != '2011-01']
 dados_frame2 = dados_frame2[dados_frame2['sales'] != 0]
 dados_frame2 = dados_frame2[~(dados_frame2['mean_price'].isna() & (dados_frame2['sales'] > 0))]
 
+# Padronizando os dados
+
 scaler = StandardScaler()
 dados_frame2 = scaler.fit_transform(dados_frame2[['sales', 'mean_price', 'region']])
 pca = PCA(n_components=2) 
@@ -57,13 +61,8 @@ df = pd.DataFrame(componentes_principais)
 dados_frame['Cluster'] = kmeans_TREINADO.predict(df)
 
 
-
-
-
-
 # Carregar os dados
 dados_frame_completo_carregar_labels = dados_frame
-# dados_frame = pd.read_csv('https://relacoesinstitucionais.com.br/Fotos/Temp/merge_df.csv')
 dados_frame['region'] = dados_frame['region'].replace({0: 'Boston', 1: 'New York', 2: 'Philadelphia'})
 
 # Sidebar para filtros
@@ -73,6 +72,7 @@ st.sidebar.header('Escolher o cluster, region e store')
 cluster_selecionado = st.sidebar.selectbox('Selecione o Cluster', options=['Escolha uma opção'] + list(dados_frame['Cluster'].unique().astype(str)))
 
 # Carrega o DataFrame correto com base no cluster selecionado
+
 if cluster_selecionado == 'Escolha uma opção':
     dados_frame_cluster = dados_frame
 else:
