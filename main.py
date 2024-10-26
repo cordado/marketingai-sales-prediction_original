@@ -146,13 +146,13 @@ else:
     
     # Seleção da região (após selecionar o cluster)
     if cluster_selecionado != 'Escolha uma opção':
-        regiao_escolhida = st.sidebar.selectbox('Selecione a região', options=['Escolha uma opção'] + list(dados_frame_cluster['region'].unique()))
+        regiao_escolhida = st.sidebar.selectbox('Selecione a region', options=['Escolha uma opção'] + list(dados_frame_cluster['region'].unique()))
         
         if regiao_escolhida != 'Escolha uma opção':
             regiao_filtrada = dados_frame_cluster[dados_frame_cluster['region'] == regiao_escolhida]
             
             # Seleção da loja (após selecionar a região)
-            store_selecionado = st.sidebar.selectbox('Selecione a Loja', options=['Escolha uma opção'] + list(regiao_filtrada['store'].unique()))
+            store_selecionado = st.sidebar.selectbox('Selecione a store', options=['Escolha uma opção'] + list(regiao_filtrada['store'].unique()))
             
             if store_selecionado != 'Escolha uma opção':
                 dados_filtrados_loja = regiao_filtrada[regiao_filtrada['store'] == store_selecionado]
@@ -305,9 +305,9 @@ else:
                     
                     
             else:
-                st.write("Nenhuma loja selecionada.")
+                st.write("Nenhuma store selecionada.")
         else:
-            st.write("Nenhuma região selecionada.")
+            st.write("Nenhuma region selecionada.")
     else:
         st.write("Por favor, selecione um CLUSTER para executar a previsão.")
     
