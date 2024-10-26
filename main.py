@@ -10,21 +10,6 @@ import joblib
 import requests
 from sklearn.decomposition import PCA
 
-
-# TELA DE APRESENTAÇÃO
-st.markdown("# **Dashboard da Empresa MarketingAI**")
-
-# SUBIR ARQUIVO ATÉ 200 MEGAS
-
-uploaded_file = st.file_uploader("Escolha um arquivo CSV", type="csv")
-dados_frame = []
-if uploaded_file is not None:
-    dados_frame = pd.read_csv(uploaded_file)
-    dados_frame2 = dados_frame
-else:
-    st.write("Por favor, carregue um arquivo CSV.")
-
-
 # Carregar o algoritimo Kmeans já treinado
 
 url = 'https://github.com/cordado/teste/raw/main/kmeans_treinado.pkl'
@@ -34,44 +19,59 @@ response = requests.get(url)
 open('kmeans_treinado.pkl', 'wb').write(response.content)
 kmeans_TREINADO = joblib.load('kmeans_treinado.pkl')
 
-# Utilizar o LabelEncoder para trazer as mesmas configurações que utilizei para treinar o algoritimo
+# TELA DE APRESENTAÇÃO
+st.markdown("# **Dashboard da Empresa MarketingAI**")
 
-label_encoder = LabelEncoder()
-dados_frame['year_month'] = pd.to_datetime(dados_frame['year_month'])
-dados_frame['region'] = label_encoder.fit_transform(dados_frame['region'])
-dados_frame['SOMA'] = dados_frame['sales'] * dados_frame['mean_price']
-dados_frame = dados_frame[dados_frame['year_month'] != '2011-01']
-dados_frame = dados_frame[dados_frame['sales'] != 0]
-dados_frame = dados_frame[~(dados_frame['mean_price'].isna() & (dados_frame['sales'] > 0))]
+# SUBIR ARQUIVO ATÉ 200 MEGAS
 
-dados_frame2['year_month'] = pd.to_datetime(dados_frame2['year_month'])
-dados_frame2['region'] = label_encoder.fit_transform(dados_frame2['region'])
-dados_frame2['SOMA'] = dados_frame2['sales'] * dados_frame2['mean_price']
-dados_frame2 = dados_frame2[dados_frame2['year_month'] != '2011-01']
-dados_frame2 = dados_frame2[dados_frame2['sales'] != 0]
-dados_frame2 = dados_frame2[~(dados_frame2['mean_price'].isna() & (dados_frame2['sales'] > 0))]
+uploaded_file = st.file_uploader("Escolha um arquivo CSV", type="csv")
 
-# Padronizando os dados
+if uploaded_file is None:
+    st.write("Por favor, carregue um arquivo CSV.")
+    
+else:
+    dados_frame = pd.read_csv(uploaded_file)
+    dados_frame2 = dados_frame
+   
 
-scaler = StandardScaler()
-dados_frame2 = scaler.fit_transform(dados_frame2[['sales', 'mean_price', 'region']])
-pca = PCA(n_components=2) 
-componentes_principais = pca.fit_transform(dados_frame2)
-df = pd.DataFrame(componentes_principais)
-dados_frame['Cluster'] = kmeans_TREINADO.predict(df)
-
-
-# Carregar os dados
-dados_frame_completo_carregar_labels = dados_frame
-dados_frame['region'] = dados_frame['region'].replace({0: 'Boston', 1: 'New York', 2: 'Philadelphia'})
-
-# Sidebar para filtros
-st.sidebar.header('Escolher o cluster, region e store')
-
-# Seleção do cluster
-cluster_selecionado = st.sidebar.selectbox('Selecione o Cluster', options=['Escolha uma opção'] + list(dados_frame['Cluster'].unique().astype(str)))
-
-# Carrega o DataFrame correto com base no cluster selecionado
+    # Utilizar o LabelEncoder para trazer as mesmas configurações que utilizei para treinar o algoritimo
+    
+    label_encoder = LabelEncoder()
+    dados_frame['year_month'] = pd.to_datetime(dados_frame['year_month'])
+    dados_frame['region'] = label_encoder.fit_transform(dados_frame['region'])
+    dados_frame['SOMA'] = dados_frame['sales'] * dados_frame['mean_price']
+    dados_frame = dados_frame[dados_frame['year_month'] != '2011-01']
+    dados_frame = dados_frame[dados_frame['sales'] != 0]
+    dados_frame = dados_frame[~(dados_frame['mean_price'].isna() & (dados_frame['sales'] > 0))]
+    
+    dados_frame2['year_month'] = pd.to_datetime(dados_frame2['year_month'])
+    dados_frame2['region'] = label_encoder.fit_transform(dados_frame2['region'])
+    dados_frame2['SOMA'] = dados_frame2['sales'] * dados_frame2['mean_price']
+    dados_frame2 = dados_frame2[dados_frame2['year_month'] != '2011-01']
+    dados_frame2 = dados_frame2[dados_frame2['sales'] != 0]
+    dados_frame2 = dados_frame2[~(dados_frame2['mean_price'].isna() & (dados_frame2['sales'] > 0))]
+    
+    # Padronizando os dados
+    
+    scaler = StandardScaler()
+    dados_frame2 = scaler.fit_transform(dados_frame2[['sales', 'mean_price', 'region']])
+    pca = PCA(n_components=2) 
+    componentes_principais = pca.fit_transform(dados_frame2)
+    df = pd.DataFrame(componentes_principais)
+    dados_frame['Cluster'] = kmeans_TREINADO.predict(df)
+    
+    
+    # Carregar os dados
+    dados_frame_completo_carregar_labels = dados_frame
+    dados_frame['region'] = dados_frame['region'].replace({0: 'Boston', 1: 'New York', 2: 'Philadelphia'})
+    
+    # Sidebar para filtros
+    st.sidebar.header('Escolher o cluster, region e store')
+    
+    # Seleção do cluster
+    cluster_selecionado = st.sidebar.selectbox('Selecione o Cluster', options=['Escolha uma opção'] + list(dados_frame['Cluster'].unique().astype(str)))
+    
+    # Carrega o DataFrame correto com base no cluster selecionado
 
 if cluster_selecionado == 'Escolha uma opção':
     dados_frame_cluster = dados_frame
