@@ -123,14 +123,23 @@ finais = pd.concat([finais, soma_final], ignore_index=True)
 
 
 
-maior_soma = finais_analise.loc[finais_analise['SOMA'].idxmax()]
+
 
        
-# Mensagem para o maior percentual de soma
-mensagem = (f"O cluster {maior_soma['Cluster']} possui uma mediana da SOMA com representação de ({maior_soma['Percentual_Soma']:.2f}%) sobre os outros Clusters.")
+# Análise automática dos clusters
+
+maior_soma = finais_analise.loc[finais_analise['SOMA'].idxmax()]
+maior_sales = finais_analise.loc[finais_analise['sales'].idxmax()]
+maior_mean_price = finais_analise.loc[finais_analise['mean_price'].idxmax()]
+
+mensagem1 = (f"O cluster {maior_soma['Cluster']} possui uma média da SOMA com representação de ({maior_soma['Percentual_Soma']:.2f}%) sobre os outros Clusters.")
+mensagem2 = (f"O cluster {maior_sales['Cluster']} possui uma média da SOMA com representação de ({maior_sales['Percentual_Soma']:.2f}%) sobre os outros Clusters.")
+mensagem3 = (f"O cluster {maior_mean_price['Cluster']} possui uma média da SOMA com representação de ({maior_mean_price['Percentual_Soma']:.2f}%) sobre os outros Clusters.")
 
 # Exibir a mensagem no Streamlit
-st.write(mensagem)
+st.write(mensagem1)
+st.write(mensagem2)
+st.write(mensagem3)
 
 st.dataframe(finais[['SOMA', 'Percentual_Soma', 'sales', 'Percentual_Sales', 'mean_price', 'Percentual_Means']])
     
