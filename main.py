@@ -239,24 +239,17 @@ if cluster_selecionado != 'Escolha uma opção':
                     ax3.annotate(str(p.get_width()), (p.get_width(), p.get_y() + p.get_height() / 2.), ha='center', va='center', xytext=(10, 0), textcoords='offset points')
                 st.pyplot(fig3)
 
-                # top_10_rep_2015_2016  pegar o top 5
-
     
-                # verificar o nome do item e filtrar
-                # agrupar usando o dataset dados_filtrados_loja[['year_month', 'SOMA']]
-                # fazer a previsão com prophet  
-                # merge com dados agrupados anteriormente
-                # mostrar o resultado
-                # loop nos dez itens
+    
 
                 st.markdown("---")
 
-
+                st.write(f'Dos 100 items mais vendidos entre 2015 e inicío de 2016 do Cluster {cluster_selecionado}, da região {regiao_escolhida} e da store {store_selecionado} os items que mais se repetem e sua predição:')
                 grouped_dataframes = []
 
-                # Loop pelas primeiras 5 linhas do dataset 'top_10_rep_2015_2016'
+           
 
-                # Loop pelas primeiras 5 linhas do dataset 'top_10_rep_2015_2016'
+                # Loop pelas primeiras 5 linhas do dataset 'top_10_rep_2015_2016' para retornar gráficos de cada item
                 for i in range(5):
                     # Obter o 'item' da linha atual
                     item = top_10_rep_2015_2016.iloc[i]['item']
