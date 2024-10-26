@@ -120,7 +120,7 @@ finais = pd.merge(finais, final3, on='Cluster', how='outer')
 finais = pd.concat([finais, soma_final], ignore_index=True)
     
 
-st.dataframe(finais[['SOMA', 'Percentual_Soma', 'sales', 'Percentual_Sales', 'mean_price', 'Percentual_Means']])
+
 
 
 maior_soma = finais_analise.loc[finais_analise['SOMA'].idxmax()]
@@ -131,6 +131,8 @@ mensagem = (f"O cluster {maior_soma['Cluster']} possui uma mediana da SOMA com r
 
 # Exibir a mensagem no Streamlit
 st.write(mensagem)
+
+st.dataframe(finais[['SOMA', 'Percentual_Soma', 'sales', 'Percentual_Sales', 'mean_price', 'Percentual_Means']])
     
 
 # Seleção da região (após selecionar o cluster)
