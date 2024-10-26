@@ -205,7 +205,7 @@ if cluster_selecionado != 'Escolha uma opção':
                 
                 top_10_stores = dados_filtrados_loja[['year_month','item','store', 'sales', 'mean_price', 'SOMA']].nlargest(10, 'SOMA') 
     
-                # top_10_stores.set_index('year_month', inplace=True)
+                top_10_stores.set_index('year_month', inplace=True)
 
                 top_100_stores = dados_filtrados_loja[['year_month','item','store', 'sales', 'mean_price', 'SOMA']].nlargest(200, 'SOMA')
                 top_100_stores_2015_2016 = top_100_stores[top_100_stores['year_month'].dt.year.isin([2015, 2016])]
@@ -244,7 +244,7 @@ if cluster_selecionado != 'Escolha uma opção':
 
                 st.markdown("---")
 
-                st.write(f'Dos 100 items mais vendidos entre 2015 e inicío de 2016 do Cluster {cluster_selecionado}, da região {regiao_escolhida} e da store {store_selecionado} os items que mais se repetem e sua predição:')
+                st.write(f'Dos 100 items mais vendidos entre 2015 e inicío de 2016 do Cluster {cluster_selecionado}, da região {regiao_escolhida} e da store {store_selecionado} os items que mais se repetem e suas predições:')
                 grouped_dataframes = []
 
            
