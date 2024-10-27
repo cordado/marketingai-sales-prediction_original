@@ -311,7 +311,8 @@ else:
     
     # Botão para resetar filtros
     if st.sidebar.button('Resetar Filtros'):
-        dados_filtrados_cluster_selecionado3 = dados_frame.groupby(['year_month'])['SOMA'].sum().reset_index()
+        cluster_selecionado == 'Escolha uma opção'
+        
     
            
         
