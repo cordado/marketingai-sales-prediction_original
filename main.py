@@ -312,9 +312,7 @@ else:
     
         
     
-    # Botão para resetar filtros
-    if st.sidebar.button('Resetar Filtros'):
-        cluster_selecionado = st.sidebar.selectbox('Selecione o Cluster', options=['Escolha uma opção'] + list(dados_frame['Cluster'].unique().astype(str)))
+
         
     
            
