@@ -61,7 +61,8 @@ else:
     dados_frame['Cluster'] = kmeans_TREINADO.predict(df)
     
     
-    # Carregar os dados
+    # Carregar os dados para outra variável e renomear as regions 
+    
     dados_frame_completo_carregar_labels = dados_frame
     dados_frame['region'] = dados_frame['region'].replace({0: 'Boston', 1: 'New York', 2: 'Philadelphia'})
     
@@ -79,7 +80,10 @@ else:
         dados_frame_cluster = dados_frame[dados_frame['Cluster'] == int(cluster_selecionado)]
     
     
-    # Painel Geral dos Clusters
+    # Painel Geral dos Clusters para análise prévia
+
+    # Objetivo é agrupar atráves do Cluster, a SOMA, SALES E MEAN_PRICE para demonstrar quais os Clusters possuem melhores índices.
+    
     final = dados_frame.groupby(['Cluster'])[['SOMA']].mean().reset_index()
     final['SOMA_TOTAL'] = final['SOMA'].sum()
     final['Percentual_Soma'] = final['SOMA'] / final['SOMA_TOTAL']
@@ -116,17 +120,11 @@ else:
     finais = pd.merge(final, final2, on='Cluster', how='outer')
     finais = pd.merge(finais, final3, on='Cluster', how='outer')
         
-    # Adicionar a linha de soma ao DataFrame finais
     finais = pd.concat([finais, soma_final], ignore_index=True)
         
     
-    
-    
-    
-    
-    
            
-    # Análise automática dos clusters
+    # Análise automática dos clusters, mesmo carregando um dataset diferente
     
     maior_soma = finais_analise.loc[finais_analise['SOMA'].idxmax()]
     maior_sales = finais_analise.loc[finais_analise['sales'].idxmax()]
@@ -145,6 +143,7 @@ else:
         
     
     # Seleção da região (após selecionar o cluster)
+    
     if cluster_selecionado != 'Escolha uma opção':
         regiao_escolhida = st.sidebar.selectbox('Selecione a region', options=['Escolha uma opção'] + list(dados_frame_cluster['region'].unique()))
         
