@@ -157,6 +157,9 @@ else:
                 dados_filtrados_loja = regiao_filtrada[regiao_filtrada['store'] == store_selecionado]
                 dados_filtrados_cluster_selecionado3 = dados_filtrados_loja.groupby(['year_month'])['SOMA'].sum().reset_index()
                 dados_filtrados_loja = dados_filtrados_loja[['year_month','item', 'region', 'store', 'sales', 'mean_price', 'SOMA']]
+
+            ## BOTÃO PARA EXECUTAR PREVISAO COM O PROPHET
+                
                 if st.button('Executar Previsão'):
                     dados_prophet = dados_filtrados_cluster_selecionado3.rename(columns={'year_month': 'ds', 'SOMA': 'y'})
                     modelo = Prophet(interval_width=0.95, daily_seasonality=False)
@@ -311,7 +314,7 @@ else:
     
     # Botão para resetar filtros
     if st.sidebar.button('Resetar Filtros'):
-        cluster_selecionado == 'Escolha uma opção'
+        cluster_selecionado = st.sidebar.selectbox('Selecione o Cluster', options=['Escolha uma opção'] + list(dados_frame['Cluster'].unique().astype(str)))
         
     
            
